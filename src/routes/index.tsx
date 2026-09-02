@@ -124,9 +124,8 @@ function Home() {
               params={{ slug: cat.slug }}
               className="rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-card)] transition-colors hover:border-primary"
             >
-              <span aria-hidden className="text-2xl">
-                {cat.emoji}
-              </span>
+              <TopicIcon slug={cat.slug} />
+
               <h3 className="mt-3 text-lg">{cat.name}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{cat.blurb}</p>
             </Link>
