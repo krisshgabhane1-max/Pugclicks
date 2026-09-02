@@ -7,11 +7,11 @@ import { RESPONSE_PROMISE } from "@/lib/site";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Pugclicks — Our Team & Editorial Standards" },
+      { title: "About Pugclicks — Editorial Standards & Team" },
       {
         name: "description",
         content:
-          "Who runs Pugclicks, how we source entertainment stories, how corrections work, and how quickly we reply to readers.",
+          "Who runs Pugclicks, how we test AI and tech tools, how corrections work, and how quickly we reply to readers.",
       },
       { property: "og:title", content: "About Pugclicks" },
       { property: "og:description", content: "Editorial standards and team information for Pugclicks." },
@@ -25,8 +25,8 @@ export const Route = createFileRoute("/about")({
 
 const TEAM = [
   { role: "Editor", note: "Commissioning, standards and corrections." },
-  { role: "Staff writer", note: "Movies and TV coverage." },
-  { role: "Contributor", note: "Gaming and sports features." },
+  { role: "Staff writer", note: "AI tools and automation guides." },
+  { role: "Contributor", note: "Android, apps and student tech." },
 ];
 
 function AboutPage() {
@@ -36,8 +36,8 @@ function AboutPage() {
         <Breadcrumbs items={[{ label: "About" }]} />
         <h1 className="mt-4 text-4xl">About Pugclicks</h1>
         <p className="mt-4 text-muted-foreground">
-          Pugclicks is an independent entertainment publication covering movies, TV and series, gaming, sports
-          and industry news. We write for readers first: short where short is enough, long where the subject
+          Pugclicks publishes practical AI and technology guides: AI tools, automation workflows, everyday tech
+          and study tools. We write for readers first: short where short is enough, long where the subject
           earns it.
         </p>
 

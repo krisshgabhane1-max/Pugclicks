@@ -6,14 +6,14 @@ import { FAQS, RESPONSE_PROMISE } from "@/lib/site";
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
-      { title: "Pugclicks FAQs — Coverage, Pitches & Corrections" },
+      { title: "Pugclicks FAQs — Coverage, Tools & Corrections" },
       {
         name: "description",
         content:
-          "Answers about what Pugclicks covers, how to pitch, our 2–3 business-day reply promise, sponsorship labelling and image rights.",
+          "Answers about what Pugclicks covers, how beginner-friendly the guides are, our 2–3 business-day reply promise and how tool recommendations work.",
       },
       { property: "og:title", content: "Pugclicks FAQs" },
-      { property: "og:description", content: "How Pugclicks handles pitches, corrections and sponsorship." },
+      { property: "og:description", content: "How Pugclicks handles guides, tool recommendations and corrections." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/faq" },
     ],

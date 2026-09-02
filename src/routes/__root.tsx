@@ -80,10 +80,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Pugclicks — Entertainment Publication" },
+      { title: "Pugclicks — AI & Technology, Made Simple" },
       {
         name: "description",
-        content: "Movies, TV, gaming and sports coverage from the independent publication Pugclicks.",
+        content: "Practical guides, useful AI tools, and technology tutorials that actually help you get things done.",
       },
       { property: "og:site_name", content: "Pugclicks" },
       { property: "og:type", content: "website" },
@@ -98,7 +98,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
@@ -109,7 +109,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Pugclicks",
-          description: "Independent entertainment publication covering movies, TV, gaming and sports.",
+          description: "Practical AI and technology guides, tools and tutorials.",
         }),
       },
     ],

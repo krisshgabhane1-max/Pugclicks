@@ -21,7 +21,7 @@ export const Route = createFileRoute("/article/$slug")({
   head: ({ params, loaderData }) => {
     const article = loaderData?.article;
     const title = article ? `${article.title} — Pugclicks` : "Article — Pugclicks";
-    const description = article?.excerpt ?? "Entertainment coverage from Pugclicks.";
+    const description = article?.excerpt ?? "Practical AI and technology guides from Pugclicks.";
     return {
       meta: [
         { title },

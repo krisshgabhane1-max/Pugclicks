@@ -41,7 +41,7 @@ const EMPTY = {
   id: "",
   title: "",
   slug: "",
-  category: "movies",
+  category: "ai",
   excerpt: "",
   body: "",
   author: "Pugclicks Staff",
