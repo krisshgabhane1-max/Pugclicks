@@ -25,7 +25,11 @@ export function useAuth() {
     }
     let active = true;
     supabase
-      .rpc("has_role", { _user_id: session.user.id, _role: "admin" })
+      .from("user_roles")
+      .select("id")
+      .eq("user_id", session.user.id)
+      .eq("role", "admin")
+      .maybeSingle()
       .then(({ data }) => {
         if (active) setIsAdmin(Boolean(data));
       });
