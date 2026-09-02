@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Bot, GraduationCap, Smartphone, Workflow, type LucideIcon } from "lucide-react";
 import { ArticleCard, ArticleMedia } from "@/components/article-card";
 import { NewsletterCta, SiteLayout } from "@/components/site-layout";
 import { Button } from "@/components/ui/button";
