@@ -55,6 +55,7 @@ function AdminPage() {
   const queryClient = useQueryClient();
   const [form, setForm] = useState({ ...EMPTY });
   const [claiming, setClaiming] = useState(false);
+  const claimAdminFn = useServerFn(claimAdmin);
 
   const { data: articles = [], isLoading } = useQuery({
     queryKey: ["admin", "articles"],
@@ -178,7 +179,7 @@ function AdminPage() {
             Signed in as {user.email}, but this account has no admin role yet. If you are setting up the site,
             claim admin now — this works only while no admin exists.
           </p>
-          <Button className="mt-6" onClick={claimAdmin} disabled={claiming}>
+          <Button className="mt-6" onClick={handleClaimAdmin} disabled={claiming}>
             Claim admin access
           </Button>
           <Button
