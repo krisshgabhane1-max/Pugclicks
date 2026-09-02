@@ -29,10 +29,11 @@ export const Route = createFileRoute("/search")({
 function SearchPage() {
   const { q } = Route.useSearch();
   const { data: articles = [], isLoading } = useQuery({
-    queryKey: ["articles", "search", q ?? ""],
+    queryKey: ["articles", "search", q],
     queryFn: () => listPublishedArticles({ data: { search: q } }),
     enabled: Boolean(q),
   });
+
 
   return (
     <SiteLayout>
