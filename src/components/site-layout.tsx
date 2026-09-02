@@ -5,6 +5,12 @@ import { CATEGORIES, CONTACT_EMAIL, SITE_NAME, SITE_TAGLINE } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+const NAV = [
+  { slug: "ai", name: "AI" },
+  { slug: "tech", name: "Tech" },
+  { slug: "guides", name: "Guides" },
+];
+
 function SearchForm({ onSubmit }: { onSubmit?: () => void }) {
   const [value, setValue] = useState("");
   return (
@@ -19,11 +25,11 @@ function SearchForm({ onSubmit }: { onSubmit?: () => void }) {
         name="q"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder="Search articles"
+        placeholder="Search guides"
         aria-label="Search articles"
-        className="h-10 bg-secondary"
+        className="h-10 bg-background"
       />
-      <Button type="submit" size="icon" className="h-10 w-10 shrink-0" aria-label="Search">
+      <Button type="submit" size="icon" variant="secondary" className="h-10 w-10 shrink-0" aria-label="Search">
         <Search className="h-4 w-4" />
       </Button>
     </form>
@@ -33,14 +39,17 @@ function SearchForm({ onSubmit }: { onSubmit?: () => void }) {
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur">
-      <div className="container-page flex min-h-16 flex-wrap items-center gap-4 py-3">
-        <Link to="/" className="font-display text-2xl leading-none">
+    <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur">
+      <div className="container-page flex min-h-14 items-center gap-4 py-2.5">
+        <Link to="/" className="font-display text-lg font-extrabold tracking-tight">
           Pug<span className="text-primary">clicks</span>
         </Link>
 
-        <nav className="ml-4 hidden flex-1 items-center gap-5 text-sm text-muted-foreground md:flex">
-          {CATEGORIES.map((c) => (
+        <nav className="ml-6 hidden flex-1 items-center gap-6 text-sm font-medium text-muted-foreground md:flex">
+          <Link to="/" className="transition-colors hover:text-foreground">
+            Home
+          </Link>
+          {NAV.map((c) => (
             <Link
               key={c.slug}
               to="/category/$slug"
@@ -51,12 +60,12 @@ export function SiteHeader() {
               {c.name}
             </Link>
           ))}
-          <Link to="/about" className="transition-colors hover:text-foreground">
-            About
+          <Link to="/tools" className="transition-colors hover:text-foreground">
+            Tools
           </Link>
         </nav>
 
-        <div className="ml-auto hidden w-64 md:block">
+        <div className="ml-auto hidden w-56 md:block">
           <SearchForm />
         </div>
 
@@ -75,22 +84,30 @@ export function SiteHeader() {
       {open && (
         <div className="container-page space-y-4 border-t border-border py-4 md:hidden">
           <SearchForm onSubmit={() => setOpen(false)} />
-          <nav className="grid grid-cols-2 gap-2 text-sm">
+          <nav className="grid grid-cols-2 gap-2 text-sm font-medium">
             {CATEGORIES.map((c) => (
               <Link
                 key={c.slug}
                 to="/category/$slug"
                 params={{ slug: c.slug }}
                 onClick={() => setOpen(false)}
-                className="rounded-md bg-secondary px-3 py-2"
+                className="rounded-xl border border-border bg-card px-3 py-2"
               >
                 {c.name}
               </Link>
             ))}
-            <Link to="/about" onClick={() => setOpen(false)} className="rounded-md bg-secondary px-3 py-2">
-              About
+            <Link
+              to="/tools"
+              onClick={() => setOpen(false)}
+              className="rounded-xl border border-border bg-card px-3 py-2"
+            >
+              Tools
             </Link>
-            <Link to="/contact" onClick={() => setOpen(false)} className="rounded-md bg-secondary px-3 py-2">
+            <Link
+              to="/contact"
+              onClick={() => setOpen(false)}
+              className="rounded-xl border border-border bg-card px-3 py-2"
+            >
               Contact
             </Link>
           </nav>
@@ -102,17 +119,17 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="mt-16 border-t border-border py-10 text-sm text-muted-foreground">
+    <footer className="mt-20 border-t border-border py-12 text-sm text-muted-foreground">
       <div className="container-page grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <div className="font-display text-xl text-foreground">
+          <div className="font-display text-lg font-extrabold text-foreground">
             Pug<span className="text-primary">clicks</span>
           </div>
-          <p className="mt-2 max-w-xs">{SITE_TAGLINE}. An independent entertainment publication.</p>
+          <p className="mt-2 max-w-xs">Making technology easier to understand. {SITE_TAGLINE}.</p>
           <p className="mt-2">{CONTACT_EMAIL}</p>
         </div>
         <div>
-          <h3 className="text-sm font-semibold text-foreground">Sections</h3>
+          <h3 className="text-sm font-semibold text-foreground">Topics</h3>
           <ul className="mt-3 space-y-2">
             {CATEGORIES.map((c) => (
               <li key={c.slug}>
@@ -124,11 +141,16 @@ export function SiteFooter() {
           </ul>
         </div>
         <div>
-          <h3 className="text-sm font-semibold text-foreground">Publication</h3>
+          <h3 className="text-sm font-semibold text-foreground">Site</h3>
           <ul className="mt-3 space-y-2">
             <li>
+              <Link to="/tools" className="hover:text-foreground">
+                Tools
+              </Link>
+            </li>
+            <li>
               <Link to="/about" className="hover:text-foreground">
-                About & team
+                About
               </Link>
             </li>
             <li>
@@ -171,16 +193,32 @@ export function SiteFooter() {
   );
 }
 
-export function StickyMobileCta() {
+export function NewsletterCta() {
   return (
-    <div className="fixed inset-x-3 bottom-3 z-40 md:hidden">
-      <Link
-        to="/contact"
-        className="flex items-center justify-center rounded-xl bg-primary px-4 py-3 text-sm font-bold text-primary-foreground shadow-[var(--shadow-card)]"
-      >
-        Pitch a story or ask a question
-      </Link>
-    </div>
+    <section className="container-page pt-16">
+      <div className="rounded-2xl bg-ink px-6 py-10 text-ink-foreground sm:px-10">
+        <h2 className="text-2xl sm:text-3xl">Get smarter with technology.</h2>
+        <p className="mt-2 max-w-xl text-sm opacity-80">
+          One useful AI or tech discovery every week. No spam.
+        </p>
+        <form
+          className="mt-6 flex max-w-md flex-col gap-3 sm:flex-row"
+          onSubmit={(e) => e.preventDefault()}
+        >
+          <Input
+            type="email"
+            required
+            name="email"
+            placeholder="Your email"
+            aria-label="Your email"
+            className="h-11 border-transparent bg-card text-foreground"
+          />
+          <Button type="submit" className="h-11 shrink-0">
+            Subscribe →
+          </Button>
+        </form>
+      </div>
+    </section>
   );
 }
 
@@ -188,9 +226,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <main className="flex-1 pb-20 md:pb-0">{children}</main>
+      <main className="flex-1 pb-16">{children}</main>
       <SiteFooter />
-      <StickyMobileCta />
     </div>
   );
 }

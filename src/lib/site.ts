@@ -1,21 +1,26 @@
 export const SITE_NAME = "Pugclicks";
-export const SITE_TAGLINE = "Movies, TV, Gaming & Sports";
+export const SITE_TAGLINE = "AI & Technology, Made Simple";
 export const CONTACT_EMAIL = "hello@example.com"; // TODO: replace before launch
 export const RESPONSE_PROMISE = "We reply to every message within 2–3 business days.";
+export const TRUST_LINE = "Practical • Beginner-friendly • No unnecessary hype";
 
 export type Category = {
   slug: string;
   name: string;
   blurb: string;
+  emoji: string;
 };
 
 export const CATEGORIES: Category[] = [
-  { slug: "movies", name: "Movies", blurb: "Reviews, explainers and release breakdowns." },
-  { slug: "tv", name: "TV & Series", blurb: "Episode analysis, season pacing and returning shows." },
-  { slug: "gaming", name: "Gaming", blurb: "Playthrough notes, indie picks and platform news." },
-  { slug: "sports", name: "Sports", blurb: "Schedules, form and long-season storylines." },
-  { slug: "news", name: "News", blurb: "Entertainment industry updates and standards notes." },
+  { slug: "ai", name: "AI", blurb: "AI tools, automation & tutorials.", emoji: "🤖" },
+  { slug: "tech", name: "Tech", blurb: "Android, apps & useful technology.", emoji: "📱" },
+  { slug: "automation", name: "Automation", blurb: "Workflows, agents & productivity.", emoji: "⚡" },
+  { slug: "guides", name: "Guides", blurb: "Step-by-step walkthroughs you can follow today.", emoji: "📘" },
+  { slug: "student-tech", name: "Student Tech", blurb: "Tools that make studying easier.", emoji: "🎓" },
 ];
+
+/** Cards shown in the homepage "Explore Topics" grid. */
+export const TOPIC_CARDS = CATEGORIES.filter((c) => c.slug !== "guides");
 
 export function categoryName(slug: string) {
   return CATEGORIES.find((c) => c.slug === slug)?.name ?? slug;
@@ -30,25 +35,45 @@ export function formatDate(value: string | null | undefined) {
   });
 }
 
+export function readingTime(body: string | null | undefined) {
+  const words = (body ?? "").trim().split(/\s+/).filter(Boolean).length;
+  return `${Math.max(1, Math.round(words / 200))} min read`;
+}
+
+export const START_HERE = [
+  { title: "What is AI, really?", slug: "what-is-ai-really" },
+  { title: "Best free AI tools right now", slug: "best-free-ai-tools" },
+  { title: "How to write better AI prompts", slug: "how-to-write-better-ai-prompts" },
+  { title: "Automate repetitive tasks in an afternoon", slug: "automate-repetitive-tasks" },
+  { title: "Build your first AI workflow", slug: "build-your-first-ai-workflow" },
+];
+
+export const TOOLS = [
+  { name: "AI assistant", does: "Writing & research", note: "Drafting, summarising and explaining sources." },
+  { name: "Automation platform", does: "Workflows", note: "Connect apps and remove repeated clicks." },
+  { name: "Productivity app", does: "Organisation", note: "Notes, tasks and study planning in one place." },
+  { name: "Developer tool", does: "Coding", note: "Faster local dev, testing and deployment." },
+];
+
 export const FAQS = [
   {
     q: "What does Pugclicks cover?",
-    a: "Pugclicks is an entertainment publication covering movies, TV and series, gaming, sports and industry news. Every article is written for readers, not for search engines.",
+    a: "Pugclicks publishes practical AI and technology guides: AI tools, automation workflows, Android and app tips, and tech that makes studying easier. Every article is written for readers, not for search engines.",
+  },
+  {
+    q: "Are the guides beginner-friendly?",
+    a: "Yes. Guides assume no prior AI experience, explain the why before the how, and only use jargon when it is defined first.",
   },
   {
     q: "How quickly do you reply to messages?",
     a: "We answer reader questions, corrections and press enquiries within 2–3 business days. Urgent corrections are prioritised.",
   },
   {
-    q: "Can I pitch an article or a correction?",
-    a: "Yes. Use the contact page and include links to any published sources. Corrections are appended to the article with a timestamp rather than edited in silently.",
-  },
-  {
     q: "Do you accept paid or sponsored posts?",
-    a: "Anything paid is labelled clearly at the top of the article. Editorial coverage is never sold, and sponsorship never changes a verdict.",
+    a: "Anything paid is labelled clearly at the top of the article. Tool recommendations are based on real use, and sponsorship never changes a verdict.",
   },
   {
-    q: "Where do your images come from?",
-    a: "Article images use image slots with descriptive alt text. Before launch, replace each slot with imagery you hold the rights to use.",
+    q: "Are the recommended tools affiliate links?",
+    a: "Where a tool link earns a commission it is disclosed on the page. The recommendation list stays the same either way.",
   },
 ];
