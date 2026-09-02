@@ -13,10 +13,10 @@ export const Route = createFileRoute("/search")({
 
   head: () => ({
     meta: [
-      { title: "Search Pugclicks Articles" },
-      { name: "description", content: "Search Pugclicks coverage of movies, TV, gaming, sports and news." },
-      { property: "og:title", content: "Search Pugclicks Articles" },
-      { property: "og:description", content: "Find Pugclicks articles by title, topic or keyword." },
+      { title: "Search Pugclicks Guides" },
+      { name: "description", content: "Search Pugclicks guides on AI, automation, tech and student tools." },
+      { property: "og:title", content: "Search Pugclicks Guides" },
+      { property: "og:description", content: "Find Pugclicks guides by title, topic or keyword." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/search" },
       { name: "robots", content: "noindex" },

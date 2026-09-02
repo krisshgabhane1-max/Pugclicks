@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Trash2 } from "lucide-react";
@@ -12,6 +13,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { CATEGORIES, categoryName, formatDate } from "@/lib/site";
 import type { Article } from "@/lib/articles.functions";
+import { claimAdmin } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -41,7 +43,7 @@ const EMPTY = {
   id: "",
   title: "",
   slug: "",
-  category: "movies",
+  category: "ai",
   excerpt: "",
   body: "",
   author: "Pugclicks Staff",
@@ -53,6 +55,7 @@ function AdminPage() {
   const queryClient = useQueryClient();
   const [form, setForm] = useState({ ...EMPTY });
   const [claiming, setClaiming] = useState(false);
+  const claimAdminFn = useServerFn(claimAdmin);
 
   const { data: articles = [], isLoading } = useQuery({
     queryKey: ["admin", "articles"],
@@ -128,19 +131,20 @@ function AdminPage() {
     onError: (error: Error) => toast.error(error.message),
   });
 
-  async function claimAdmin() {
+  async function handleClaimAdmin() {
     setClaiming(true);
-    const { data, error } = await supabase.rpc("claim_admin");
-    setClaiming(false);
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-    if (data) {
-      toast.success("Admin access granted");
-      window.location.reload();
-    } else {
-      toast.error("An admin already exists. Ask them to grant you access.");
+    try {
+      const result = await claimAdminFn();
+      if (result.granted) {
+        toast.success("Admin access granted");
+        window.location.reload();
+      } else {
+        toast.error("An admin already exists. Ask them to grant you access.");
+      }
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not claim admin access");
+    } finally {
+      setClaiming(false);
     }
   }
 
@@ -175,7 +179,7 @@ function AdminPage() {
             Signed in as {user.email}, but this account has no admin role yet. If you are setting up the site,
             claim admin now — this works only while no admin exists.
           </p>
-          <Button className="mt-6" onClick={claimAdmin} disabled={claiming}>
+          <Button className="mt-6" onClick={handleClaimAdmin} disabled={claiming}>
             Claim admin access
           </Button>
           <Button
