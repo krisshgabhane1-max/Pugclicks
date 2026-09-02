@@ -41,6 +41,22 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
+const TOPIC_ICONS: Record<string, LucideIcon> = {
+  ai: Bot,
+  tech: Smartphone,
+  automation: Workflow,
+  "student-tech": GraduationCap,
+};
+
+function TopicIcon({ slug }: { slug: string }) {
+  const Icon = TOPIC_ICONS[slug] ?? Bot;
+  return (
+    <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-primary">
+      <Icon className="h-5 w-5" aria-hidden />
+    </span>
+  );
+}
+
 function Home() {
   const { data: articles } = useSuspenseQuery(homeQuery);
   const [lead, ...rest] = articles;
