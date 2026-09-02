@@ -4,12 +4,13 @@ import { ArticleCard } from "@/components/article-card";
 import { Breadcrumbs, SiteLayout } from "@/components/site-layout";
 import { listPublishedArticles } from "@/lib/articles.functions";
 
-type SearchParams = { q?: string };
+type SearchParams = { q: string };
 
 export const Route = createFileRoute("/search")({
   validateSearch: (search: Record<string, unknown>): SearchParams => ({
-    q: typeof search.q === "string" ? search.q : undefined,
+    q: typeof search["q"] === "string" ? search["q"] : "",
   }),
+
   head: () => ({
     meta: [
       { title: "Search Pugclicks Articles" },
