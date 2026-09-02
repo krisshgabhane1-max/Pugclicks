@@ -4,12 +4,13 @@ import { ArticleCard } from "@/components/article-card";
 import { Breadcrumbs, SiteLayout } from "@/components/site-layout";
 import { listPublishedArticles } from "@/lib/articles.functions";
 
-type SearchParams = { q?: string };
+type SearchParams = { q: string };
 
 export const Route = createFileRoute("/search")({
   validateSearch: (search: Record<string, unknown>): SearchParams => ({
-    q: typeof search.q === "string" ? search.q : undefined,
+    q: typeof search["q"] === "string" ? search["q"] : "",
   }),
+
   head: () => ({
     meta: [
       { title: "Search Pugclicks Articles" },
@@ -28,10 +29,11 @@ export const Route = createFileRoute("/search")({
 function SearchPage() {
   const { q } = Route.useSearch();
   const { data: articles = [], isLoading } = useQuery({
-    queryKey: ["articles", "search", q ?? ""],
+    queryKey: ["articles", "search", q],
     queryFn: () => listPublishedArticles({ data: { search: q } }),
     enabled: Boolean(q),
   });
+
 
   return (
     <SiteLayout>
