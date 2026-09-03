@@ -40,11 +40,24 @@ function AdminComments() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("comments")
-        .select("id, body, created_at, user_id, articles(slug, title), profiles:user_id(username, display_name)")
+        .select("id, body, created_at, user_id, articles(slug, title)")
         .order("created_at", { ascending: false })
         .limit(200);
       if (error) throw new Error(error.message);
-      return (data ?? []) as unknown as CommentRow[];
+      const rows = (data ?? []) as unknown as CommentRow[];
+
+      const ids = [...new Set(rows.map((r) => r.user_id))];
+      if (ids.length) {
+        const { data: profiles } = await supabase
+          .from("profiles")
+          .select("id, username, display_name")
+          .in("id", ids);
+        const byId = new Map((profiles ?? []).map((p) => [p.id, p]));
+        rows.forEach((row) => {
+          row.profiles = byId.get(row.user_id) ?? null;
+        });
+      }
+      return rows;
     },
   });
 
