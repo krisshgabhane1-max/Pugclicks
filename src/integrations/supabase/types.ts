@@ -49,11 +49,13 @@ export type Database = {
           author_id: string | null
           body: string
           category: string
+          cover_image: string
           created_at: string
           excerpt: string
           id: string
           image_alt: string
           published_at: string | null
+          seo_title: string
           slug: string
           status: string
           title: string
@@ -64,11 +66,13 @@ export type Database = {
           author_id?: string | null
           body?: string
           category: string
+          cover_image?: string
           created_at?: string
           excerpt?: string
           id?: string
           image_alt?: string
           published_at?: string | null
+          seo_title?: string
           slug: string
           status?: string
           title: string
@@ -79,11 +83,13 @@ export type Database = {
           author_id?: string | null
           body?: string
           category?: string
+          cover_image?: string
           created_at?: string
           excerpt?: string
           id?: string
           image_alt?: string
           published_at?: string | null
+          seo_title?: string
           slug?: string
           status?: string
           title?: string
