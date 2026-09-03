@@ -1,0 +1,3 @@
+ALTER TABLE public.articles
+  ADD COLUMN IF NOT EXISTS cover_image text NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS seo_title text NOT NULL DEFAULT '';
