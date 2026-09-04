@@ -76,7 +76,15 @@ function ArticlePage() {
           </p>
 
           <div className="mt-6 overflow-hidden rounded-xl border border-border">
-            <ArticleMedia alt={article.image_alt || article.title} className="h-64" />
+            {article.cover_image ? (
+              <img
+                src={article.cover_image}
+                alt={article.image_alt || article.title}
+                className="h-64 w-full object-cover"
+              />
+            ) : (
+              <ArticleMedia alt={article.image_alt || article.title} className="h-64" />
+            )}
           </div>
 
           <p className="mt-6 text-lg text-foreground">{article.excerpt}</p>
@@ -86,6 +94,8 @@ function ArticlePage() {
               <p key={i}>{p}</p>
             ))}
           </div>
+
+          <ArticleEngagement articleId={article.id} title={article.title} slug={article.slug} />
 
           <div className="mt-10 rounded-xl border border-border bg-card p-6">
             <h2 className="text-xl">Spotted something wrong?</h2>

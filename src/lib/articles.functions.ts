@@ -7,6 +7,8 @@ export type Article = {
   slug: string;
   title: string;
   category: string;
+  seo_title: string;
+  cover_image: string;
   excerpt: string;
   body: string;
   author: string;
@@ -15,7 +17,8 @@ export type Article = {
   published_at: string | null;
 };
 
-const COLUMNS = "id, slug, title, category, excerpt, body, author, image_alt, status, published_at";
+const COLUMNS =
+  "id, slug, title, seo_title, category, excerpt, body, author, cover_image, image_alt, status, published_at";
 
 function publicClient() {
   const url = process.env["SUPABASE_URL"]!;
