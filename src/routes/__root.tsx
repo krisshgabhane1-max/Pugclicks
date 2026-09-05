@@ -85,6 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "description",
         content: "Practical guides, useful AI tools, and technology tutorials that actually help you get things done.",
       },
+      { name: "google-adsense-account", content: "ca-pub-8663839591787832" },
       { property: "og:site_name", content: "Pugclicks" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
