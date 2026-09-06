@@ -69,6 +69,13 @@ export function SiteHeader() {
           <SearchForm />
         </div>
 
+        <Link
+          to="/profile"
+          className="hidden shrink-0 rounded-full border border-border px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground md:block"
+        >
+          Account
+        </Link>
+
         <Button
           variant="secondary"
           size="icon"
@@ -164,8 +171,13 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
-              <Link to="/admin" className="hover:text-foreground">
-                Editor dashboard
+              <Link to="/credits" className="hover:text-foreground">
+                Credits
+              </Link>
+            </li>
+            <li>
+              <Link to="/referral" className="hover:text-foreground">
+                Recommended tools
               </Link>
             </li>
           </ul>
