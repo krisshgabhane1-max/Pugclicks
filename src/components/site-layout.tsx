@@ -117,6 +117,13 @@ export function SiteHeader() {
             >
               Contact
             </Link>
+            <Link
+              to="/profile"
+              onClick={() => setOpen(false)}
+              className="rounded-xl border border-border bg-card px-3 py-2"
+            >
+              Account
+            </Link>
           </nav>
         </div>
       )}
