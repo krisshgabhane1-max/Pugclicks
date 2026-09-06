@@ -3,20 +3,22 @@
 ## Done
 - AdSense script + `google-adsense-account` meta tag in the global head, on every page
 - Google site-verification file
-- `pugclicks-editorial` skill (research articles + admin conventions)
-- Admin editor upgrade: cover image, SEO title, live preview, edit-in-place
+- Writing skill for research-backed Pugclicks articles
+- Admin article editor: cover image, SEO title, live preview, edit-in-place
 - Admin tabs: Posts / Users (roles) / Comments (moderation)
 - Reader accounts: /login, /signup, /forgot-password, /reset-password, /profile, /notifications
 - Article engagement: like, comment, share (phone share sheet + copy link + WhatsApp)
+- Photo picker: upload from gallery/files or paste an image link
 
 ## In progress
-- Account links in the header
-- Photo upload: pick a picture from the phone/computer, or paste an image link — used for article covers and site images
+- Photo picker wired into the article editor
+- Site editing INSIDE /admin only (no public /editor page — visitors must never edit)
+- Hide the admin link from the footer
 
 ## Next
-- /editor — edit the whole site without code: every headline, button label, link and section on the homepage, plus show/hide and reorder sections
-- /seo — edit page titles, descriptions and share text for each page
-- /referral — referral/affiliate links page, editable from /editor
-- Credits section — thank Google, ChatGPT and other AI tools, editable
-- Follow button for the Pugclicks author + /following page
+- /admin site tab: homepage headlines, button labels and links, hero photo, section order, show/hide
+- /admin SEO tab: page titles, descriptions, share image
+- /credits public page: thank-you links to Google, ChatGPT and other tools, each opening its official page
+- /referral public page: recommended-tool links, editable from admin
+- Real Pugclicks logo used for link previews (og:image) and the site icon
 - Publish so the live site carries the AdSense tag

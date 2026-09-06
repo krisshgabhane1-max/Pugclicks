@@ -213,17 +213,12 @@ function AdminPosts() {
                 className="bg-secondary"
               />
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="cover_image">Cover image URL</Label>
-              <Input
-                id="cover_image"
-                placeholder="https://…"
-                value={form.cover_image}
-                onChange={(e) => setForm((f) => ({ ...f, cover_image: e.target.value }))}
-                className="bg-secondary"
-              />
-            </div>
           </div>
+          <ImagePicker
+            label="Cover photo (upload from gallery/files or paste a link)"
+            value={form.cover_image}
+            onChange={(url) => setForm((f) => ({ ...f, cover_image: url }))}
+          />
           <div className="grid gap-2">
             <Label htmlFor="image_alt">Image alt text</Label>
             <Input

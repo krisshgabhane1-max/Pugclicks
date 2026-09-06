@@ -24,6 +24,8 @@ export const Route = createFileRoute("/admin")({
 
 const TABS = [
   { to: "/admin", label: "Posts", exact: true },
+  { to: "/admin/site", label: "Site editor", exact: false },
+  { to: "/admin/seo", label: "Search & sharing", exact: false },
   { to: "/admin/users", label: "Users", exact: false },
   { to: "/admin/comments", label: "Comments", exact: false },
 ] as const;
