@@ -1,7 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { Menu, Search } from "lucide-react";
-import { CATEGORIES, CONTACT_EMAIL, SITE_NAME, SITE_TAGLINE } from "@/lib/site";
+import {
+  CATEGORIES,
+  CONTACT_EMAIL,
+  MENU_CATEGORIES,
+  SITE_NAME,
+  SITE_TAGLINE,
+  categoryName,
+} from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -36,11 +43,47 @@ function SearchForm({ onSubmit }: { onSubmit?: () => void }) {
   );
 }
 
+function TopMenu() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="relative">
+      <Button
+        variant="secondary"
+        size="icon"
+        aria-label="Open categories menu"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <Menu className="h-5 w-5" />
+      </Button>
+      {open && (
+        <div className="absolute left-0 top-12 z-40 w-64 space-y-3 rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-card)]">
+          <SearchForm onSubmit={() => setOpen(false)} />
+          <nav className="grid gap-1 text-sm font-medium">
+            {MENU_CATEGORIES.map((slug) => (
+              <Link
+                key={slug}
+                to="/category/$slug"
+                params={{ slug }}
+                onClick={() => setOpen(false)}
+                className="rounded-lg px-3 py-2 hover:bg-secondary hover:text-primary"
+              >
+                {categoryName(slug)}
+              </Link>
+            ))}
+          </nav>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur">
       <div className="container-page flex min-h-14 items-center gap-4 py-2.5">
+        <TopMenu />
         <Link to="/" className="font-display text-lg font-extrabold tracking-tight">
           Pug<span className="text-primary">clicks</span>
         </Link>
