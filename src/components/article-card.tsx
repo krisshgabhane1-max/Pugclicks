@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { Sparkles } from "lucide-react";
 import type { Article } from "@/lib/articles.functions";
 import { categoryName, formatDate, readingTime } from "@/lib/site";
@@ -12,12 +13,14 @@ export function ArticleMedia({
   src?: string | null;
   className?: string;
 }) {
-  if (src) {
+  const [failed, setFailed] = useState(false);
+  if (src && !failed) {
     return (
       <img
         src={src}
         alt={alt}
         loading="lazy"
+        onError={() => setFailed(true)}
         className={`w-full ${className} object-cover bg-accent`}
       />
     );
