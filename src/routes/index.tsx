@@ -101,6 +101,7 @@ function Home() {
             </div>
             <ArticleMedia
               alt={lead.image_alt || lead.title}
+              src={lead.cover_image}
               className="order-first h-40 lg:order-last lg:h-full lg:min-h-64"
             />
           </div>
