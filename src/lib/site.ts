@@ -1,6 +1,6 @@
 export const SITE_NAME = "Pugclicks";
 export const SITE_TAGLINE = "AI & Technology, Made Simple";
-export const CONTACT_EMAIL = "hello@example.com"; // TODO: replace before launch
+export const CONTACT_EMAIL = "pugclicks@gmail.com";
 export const RESPONSE_PROMISE = "We reply to every message within 2–3 business days.";
 export const TRUST_LINE = "Practical • Beginner-friendly • No unnecessary hype";
 
@@ -17,10 +17,20 @@ export const CATEGORIES: Category[] = [
   { slug: "automation", name: "Automation", blurb: "Workflows, agents & productivity.", emoji: "⚡" },
   { slug: "guides", name: "Guides", blurb: "Step-by-step walkthroughs you can follow today.", emoji: "📘" },
   { slug: "student-tech", name: "Student Tech", blurb: "Tools that make studying easier.", emoji: "🎓" },
+  { slug: "sports", name: "Sports", blurb: "Sports news, fan tech and match-day apps.", emoji: "⚽" },
+  { slug: "action", name: "Action", blurb: "Action films, shows and games worth your time.", emoji: "💥" },
+  { slug: "movies", name: "Movies", blurb: "Movie guides, reviews and where to stream them.", emoji: "🎬" },
+  { slug: "series", name: "Series", blurb: "TV and web series explained, ranked and reviewed.", emoji: "📺" },
+  { slug: "games", name: "Games", blurb: "Gaming guides, tips and the tech behind games.", emoji: "🎮" },
 ];
 
+/** Categories shown in the top-left menu. */
+export const MENU_CATEGORIES = ["sports", "action", "movies", "series", "games", "tech", "ai"];
+
 /** Cards shown in the homepage "Explore Topics" grid. */
-export const TOPIC_CARDS = CATEGORIES.filter((c) => c.slug !== "guides");
+export const TOPIC_CARDS = CATEGORIES.filter((c) =>
+  ["ai", "tech", "automation", "student-tech"].includes(c.slug),
+);
 
 export function categoryName(slug: string) {
   return CATEGORIES.find((c) => c.slug === slug)?.name ?? slug;

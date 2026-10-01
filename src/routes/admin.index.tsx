@@ -11,6 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { CATEGORIES, categoryName, formatDate, readingTime } from "@/lib/site";
 import type { Article } from "@/lib/articles.functions";
+import { ImagePicker } from "@/components/image-picker";
 
 export const Route = createFileRoute("/admin/")({
   component: AdminPosts,

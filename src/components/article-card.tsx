@@ -1,9 +1,30 @@
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { Sparkles } from "lucide-react";
 import type { Article } from "@/lib/articles.functions";
 import { categoryName, formatDate, readingTime } from "@/lib/site";
 
-export function ArticleMedia({ alt, className = "h-40" }: { alt: string; className?: string }) {
+export function ArticleMedia({
+  alt,
+  src,
+  className = "h-40",
+}: {
+  alt: string;
+  src?: string | null;
+  className?: string;
+}) {
+  const [failed, setFailed] = useState(false);
+  if (src && !failed) {
+    return (
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        onError={() => setFailed(true)}
+        className={`w-full ${className} object-cover bg-accent`}
+      />
+    );
+  }
   return (
     <div
       role="img"
@@ -19,7 +40,11 @@ export function ArticleCard({ article, featured = false }: { article: Article; f
   return (
     <article className="group overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-glow)]">
       <Link to="/article/$slug" params={{ slug: article.slug }} className="block">
-        <ArticleMedia alt={article.image_alt || article.title} className={featured ? "h-48" : "h-36"} />
+        <ArticleMedia
+          alt={article.image_alt || article.title}
+          src={article.cover_image}
+          className={featured ? "h-48" : "h-40"}
+        />
         <div className="p-5">
           <span className="kicker">{categoryName(article.category)}</span>
           <h3
