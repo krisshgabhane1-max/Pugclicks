@@ -5,6 +5,7 @@ import { Breadcrumbs, SiteLayout } from "@/components/site-layout";
 import { Button } from "@/components/ui/button";
 import { getArticleBySlug } from "@/lib/articles.functions";
 import { categoryName, formatDate, RESPONSE_PROMISE } from "@/lib/site";
+import { ArticleEngagement } from "@/components/article-engagement";
 
 const articleQuery = (slug: string) =>
   queryOptions({
