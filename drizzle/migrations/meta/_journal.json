@@ -8,6 +8,13 @@
       "when": 1790844532149,
       "tag": "0000_restrict_site_images_listing",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790912882040,
+      "tag": "0001_signed_in_profiles_and_newsletter",
+      "breakpoints": true
     }
   ]
 }
