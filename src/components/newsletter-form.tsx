@@ -15,13 +15,13 @@ export function NewsletterForm({ source = "newsletter" }: { source?: string }) {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     const parsed = emailSchema.safeParse(email);
-    if (!parsed.success) return toast.error("Please enter a valid email.");
+    if (!parsed.success) { toast.error("Please enter a valid email."); return; }
     setBusy(true);
     const { error } = await supabase
       .from("newsletter_subscribers")
       .insert({ email: parsed.data.toLowerCase(), source: source.slice(0, 100) });
     setBusy(false);
-    if (error && error.code !== "23505") return toast.error("Couldn't subscribe. Please try again.");
+    if (error && error.code !== "23505") { toast.error("Couldn't subscribe. Please try again."); return; }
     setDone(true);
     toast.success("You're subscribed. Thanks!");
   }

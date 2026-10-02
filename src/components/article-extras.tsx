@@ -89,7 +89,7 @@ export function TableOfContents({ blocks }: { blocks: Block[] }) {
 export function keyPoints(blocks: Block[]): string[] {
   return blocks
     .filter((b): b is Extract<Block, { type: "p" }> => b.type === "p")
-    .map((b) => b.text.split(/(?<=[.!?])\s/)[0])
+    .map((b) => b.text.split(/(?<=[.!?])\s/)[0] ?? "")
     .filter((s) => s.length > 30 && s.length < 240)
     .slice(0, 3);
 }
