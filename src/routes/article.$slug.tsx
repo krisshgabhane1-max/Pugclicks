@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { getArticleBySlug } from "@/lib/articles.functions";
 import { categoryName, formatDate, RESPONSE_PROMISE } from "@/lib/site";
 import { ArticleEngagement } from "@/components/article-engagement";
+import { ArticleBody, AuthorBox, KeyInsights, ReadAloud, ShareRow, TableOfContents, keyPoints, parseBody } from "@/components/article-extras";
+
+const BASE = "https://pugclicks.lovable.app";
 
 const articleQuery = (slug: string) =>
   queryOptions({
@@ -30,9 +33,17 @@ export const Route = createFileRoute("/article/$slug")({
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: `/article/${params.slug}` },
+        { property: "og:url", content: `${BASE}/article/${params.slug}` },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        ...(article?.cover_image?.startsWith("https://")
+          ? [
+              { property: "og:image", content: article.cover_image },
+              { name: "twitter:image", content: article.cover_image },
+            ]
+          : []),
       ],
-      links: [{ rel: "canonical", href: `/article/${params.slug}` }],
+      links: [{ rel: "canonical", href: `${BASE}/article/${params.slug}` }],
       scripts: article
         ? [
             {
@@ -44,6 +55,9 @@ export const Route = createFileRoute("/article/$slug")({
                 description: article.excerpt,
                 author: { "@type": "Organization", name: article.author },
                 datePublished: article.published_at,
+                mainEntityOfPage: `${BASE}/article/${article.slug}`,
+                publisher: { "@type": "Organization", name: "Pugclicks", url: BASE },
+                ...(article.cover_image?.startsWith("https://") ? { image: [article.cover_image] } : {}),
                 articleSection: categoryName(article.category),
               }),
             },
@@ -58,7 +72,8 @@ function ArticlePage() {
   const { slug } = Route.useParams();
   const { data } = useSuspenseQuery(articleQuery(slug));
   const article = data.article!;
-  const paragraphs = article.body.split(/\n\s*\n/).filter(Boolean);
+  const blocks = parseBody(article.body);
+  const url = `${BASE}/article/${article.slug}`;
 
   return (
     <SiteLayout>
@@ -81,7 +96,7 @@ function ArticlePage() {
               <img
                 src={article.cover_image}
                 alt={article.image_alt || article.title}
-                className="h-64 w-full object-cover"
+                className="aspect-[1200/630] w-full object-cover" width={1200} height={630} fetchPriority="high"
               />
             ) : (
               <ArticleMedia alt={article.image_alt || article.title} className="h-64" />
@@ -90,11 +105,14 @@ function ArticlePage() {
 
           <p className="mt-6 text-lg text-foreground">{article.excerpt}</p>
 
-          <div className="article-prose mt-4 space-y-5">
-            {paragraphs.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+            <ReadAloud text={`${article.title}. ${article.excerpt}. ${article.body.replace(/[#|*-]/g, " ")}`} />
+            <ShareRow url={url} text={article.title} />
           </div>
+          <KeyInsights points={keyPoints(blocks)} url={url} />
+          <TableOfContents blocks={blocks} />
+          <ArticleBody blocks={blocks} />
+          <AuthorBox name={article.author || "Pugclicks Staff"} />
 
           <ArticleEngagement articleId={article.id} title={article.title} slug={article.slug} />
 
