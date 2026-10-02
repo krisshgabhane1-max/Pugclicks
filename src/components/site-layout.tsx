@@ -1,10 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
-import { Menu, Search } from "lucide-react";
+import { Menu, Moon, Search, Sun } from "lucide-react";
+import { useTheme } from "@/hooks/use-theme";
+import { NewsletterForm } from "@/components/newsletter-form";
 import {
   CATEGORIES,
   CONTACT_EMAIL,
-  MENU_CATEGORIES,
   SITE_NAME,
   SITE_TAGLINE,
   categoryName,
@@ -43,47 +44,12 @@ function SearchForm({ onSubmit }: { onSubmit?: () => void }) {
   );
 }
 
-function TopMenu() {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="relative">
-      <Button
-        variant="secondary"
-        size="icon"
-        aria-label="Open categories menu"
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-      >
-        <Menu className="h-5 w-5" />
-      </Button>
-      {open && (
-        <div className="absolute left-0 top-12 z-40 w-64 space-y-3 rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-card)]">
-          <SearchForm onSubmit={() => setOpen(false)} />
-          <nav className="grid gap-1 text-sm font-medium">
-            {MENU_CATEGORIES.map((slug) => (
-              <Link
-                key={slug}
-                to="/category/$slug"
-                params={{ slug }}
-                onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-2 hover:bg-secondary hover:text-primary"
-              >
-                {categoryName(slug)}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      )}
-    </div>
-  );
-}
-
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const { theme, toggle } = useTheme();
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur">
       <div className="container-page flex min-h-14 items-center gap-4 py-2.5">
-        <TopMenu />
         <Link to="/" className="font-display text-lg font-extrabold tracking-tight">
           Pug<span className="text-primary">clicks</span>
         </Link>
@@ -122,7 +88,7 @@ export function SiteHeader() {
         <Button
           variant="secondary"
           size="icon"
-          className="ml-auto md:hidden"
+          className="ml-auto md:ml-0"
           aria-label="Toggle menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -132,9 +98,13 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <div className="container-page space-y-4 border-t border-border py-4 md:hidden">
+        <div className="container-page space-y-4 border-t border-border py-4">
+          <Button variant="outline" className="w-full justify-start gap-2" onClick={toggle} aria-pressed={theme === "dark"}>
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            {theme === "dark" ? "Light mode" : "Dark mode"}
+          </Button>
           <SearchForm onSubmit={() => setOpen(false)} />
-          <nav className="grid grid-cols-2 gap-2 text-sm font-medium">
+          <nav className="grid grid-cols-2 gap-2 text-sm font-medium sm:grid-cols-4">
             {CATEGORIES.map((c) => (
               <Link
                 key={c.slug}
@@ -263,22 +233,7 @@ export function NewsletterCta() {
         <p className="mt-2 max-w-xl text-sm opacity-80">
           One useful AI or tech discovery every week. No spam.
         </p>
-        <form
-          className="mt-6 flex max-w-md flex-col gap-3 sm:flex-row"
-          onSubmit={(e) => e.preventDefault()}
-        >
-          <Input
-            type="email"
-            required
-            name="email"
-            placeholder="Your email"
-            aria-label="Your email"
-            className="h-11 border-transparent bg-card text-foreground"
-          />
-          <Button type="submit" className="h-11 shrink-0">
-            Subscribe →
-          </Button>
-        </form>
+        <NewsletterForm />
       </div>
     </section>
   );
