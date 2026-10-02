@@ -6,7 +6,6 @@ import { NewsletterForm } from "@/components/newsletter-form";
 import {
   CATEGORIES,
   CONTACT_EMAIL,
-  MENU_CATEGORIES,
   SITE_NAME,
   SITE_TAGLINE,
   categoryName,

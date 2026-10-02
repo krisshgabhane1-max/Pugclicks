@@ -4,6 +4,7 @@ import { ArrowRight, Bot, GraduationCap, Smartphone, Workflow, type LucideIcon }
 import { ArticleCard, ArticleMedia } from "@/components/article-card";
 import { NewsletterCta, SiteLayout } from "@/components/site-layout";
 import { Button } from "@/components/ui/button";
+import { AdSlot } from "@/components/ad-slot";
 import { listPublishedArticles } from "@/lib/articles.functions";
 import {
   categoryName,
@@ -170,6 +171,8 @@ function Home() {
           </p>
         )}
       </section>
+
+      <AdSlot />
 
       {/* Tools */}
       <section className="container-page pt-14 sm:pt-20">

@@ -14,6 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { THEME_INIT_SCRIPT } from "@/hooks/use-theme";
 
 
 function NotFoundComponent() {
@@ -87,6 +88,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "Practical guides, useful AI tools, and technology tutorials that actually help you get things done.",
       },
       { name: "google-adsense-account", content: "ca-pub-8663839591787832" },
+      { name: "google-site-verification", content: "wELCOSkgCgKwba0TfVzEMUOK6x5q8MfhtnReLi6WW_o" },
+      { name: "hilltopads-site-verification", content: "c4a27d10378df9edf039cb1bec4b33631c45f9a1" },
+      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
       { property: "og:site_name", content: "Pugclicks" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -105,6 +109,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
     scripts: [
+      { children: THEME_INIT_SCRIPT },
       {
         async: true,
         src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8663839591787832",
@@ -130,7 +135,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
