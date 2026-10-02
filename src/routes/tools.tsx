@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Breadcrumbs, NewsletterCta, SiteLayout } from "@/components/site-layout";
 import { Button } from "@/components/ui/button";
 import { TOOLS } from "@/lib/site";
+import { CostCalculator, PromptOptimizer } from "@/components/ai-tools";
 
 const TITLE = "Tools We Recommend — AI, Automation & Productivity | Pugclicks";
 const DESCRIPTION =
@@ -15,9 +16,11 @@ export const Route = createFileRoute("/tools")({
       { property: "og:title", content: "Tools We Recommend" },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/tools" },
+      { property: "og:url", content: "https://pugclicks.lovable.app/tools" },
+      { name: "twitter:title", content: "Free AI Tools & Calculators — Pugclicks" },
+      { name: "twitter:description", content: DESCRIPTION },
     ],
-    links: [{ rel: "canonical", href: "/tools" }],
+    links: [{ rel: "canonical", href: "https://pugclicks.lovable.app/tools" }],
   }),
   component: ToolsPage,
 });
@@ -33,7 +36,13 @@ function ToolsPage() {
           with the specific products you use and recommend. Any link that earns a commission is disclosed.
         </p>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        <div className="mt-8 grid gap-4 lg:grid-cols-2">
+          <PromptOptimizer />
+          <CostCalculator />
+        </div>
+
+        <h2 className="mt-12 text-2xl">Tool categories</h2>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
           {TOOLS.map((t) => (
             <div key={t.name} className="rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-card)]">
               <span className="kicker">{t.does}</span>
