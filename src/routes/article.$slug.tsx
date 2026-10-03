@@ -91,16 +91,13 @@ function ArticlePage() {
             By {article.author} · {formatDate(article.published_at)}
           </p>
 
-          <div className="mt-6 overflow-hidden rounded-xl border border-border">
-            {article.cover_image ? (
-              <img
-                src={article.cover_image}
-                alt={article.image_alt || article.title}
-                className="aspect-[1200/630] w-full object-cover" width={1200} height={630} fetchPriority="high"
-              />
-            ) : (
-              <ArticleMedia alt={article.image_alt || article.title} className="h-64" />
-            )}
+          <div className="mt-6 overflow-hidden rounded-xl border border-border bg-muted">
+            <ArticleMedia
+              alt={article.image_alt || article.title}
+              src={article.cover_image}
+              full
+              className="h-64"
+            />
           </div>
 
           <p className="mt-6 text-lg text-foreground">{article.excerpt}</p>

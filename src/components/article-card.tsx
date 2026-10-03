@@ -8,21 +8,45 @@ export function ArticleMedia({
   alt,
   src,
   className = "h-40",
+  full = false,
 }: {
   alt: string;
   src?: string | null;
   className?: string;
+  full?: boolean;
 }) {
   const [failed, setFailed] = useState(false);
   if (src && !failed) {
+    if (full) {
+      // Article page: show the whole photo, never cropped, at its natural shape.
+      return (
+        <img
+          src={src}
+          alt={alt}
+          fetchPriority="high"
+          onError={() => setFailed(true)}
+          className="mx-auto block h-auto max-h-[80vh] w-full object-contain"
+        />
+      );
+    }
+    // Cards: whole photo visible inside the frame, soft blurred fill behind it.
     return (
-      <img
-        src={src}
-        alt={alt}
-        loading="lazy"
-        onError={() => setFailed(true)}
-        className={`w-full ${className} object-cover bg-accent`}
-      />
+      <div className={`relative w-full ${className} overflow-hidden bg-muted`}>
+        <img
+          src={src}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          className="absolute inset-0 h-full w-full scale-110 object-cover opacity-60 blur-xl"
+        />
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          onError={() => setFailed(true)}
+          className="relative h-full w-full object-contain"
+        />
+      </div>
     );
   }
   return (
