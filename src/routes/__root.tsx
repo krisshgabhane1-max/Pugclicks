@@ -90,6 +90,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "google-adsense-account", content: "ca-pub-8663839591787832" },
       { name: "google-site-verification", content: "wELCOSkgCgKwba0TfVzEMUOK6x5q8MfhtnReLi6WW_o" },
       { name: "hilltopads-site-verification", content: "c4a27d10378df9edf039cb1bec4b33631c45f9a1" },
+      { name: "2ca28eb265310518b3c6f48c8decabe6e0d0df59", content: "2ca28eb265310518b3c6f48c8decabe6e0d0df59" },
       { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
       { property: "og:site_name", content: "Pugclicks" },
       { property: "og:type", content: "website" },
