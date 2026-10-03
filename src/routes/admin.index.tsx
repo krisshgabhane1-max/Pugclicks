@@ -280,7 +280,7 @@ function AdminPosts() {
                 <img
                   src={form.cover_image}
                   alt={form.image_alt || form.title}
-                  className="mb-5 aspect-video w-full rounded-lg object-cover"
+                  className="mb-5 h-auto max-h-[70vh] w-full rounded-lg bg-muted object-contain"
                   loading="lazy"
                 />
               ) : null}
