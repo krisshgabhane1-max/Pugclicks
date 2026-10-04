@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { getArticleBySlug } from "@/lib/articles.functions";
 import { categoryName, formatDate, RESPONSE_PROMISE } from "@/lib/site";
 import { ArticleEngagement } from "@/components/article-engagement";
+import { AdSlot } from "@/components/ad-slot";
 import { ArticleBody, AuthorBox, KeyInsights, ReadAloud, ShareRow, TableOfContents, keyPoints, parseBody } from "@/components/article-extras";
 
 const BASE = "https://pugclicks.lovable.app";
@@ -109,6 +110,7 @@ function ArticlePage() {
           <KeyInsights points={keyPoints(blocks)} url={url} />
           <TableOfContents blocks={blocks} />
           <ArticleBody blocks={blocks} />
+          <AdSlot slot="1208872902" />
           <AuthorBox name={article.author || "Pugclicks Staff"} />
 
           <ArticleEngagement articleId={article.id} title={article.title} slug={article.slug} />
