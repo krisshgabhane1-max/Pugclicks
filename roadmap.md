@@ -3,6 +3,7 @@
 ## Done
 - AdSense script + `google-adsense-account` meta tag in the global head, on every page
 - Google site-verification file
+- HilltopAds: verification meta tags + referrer meta + script link, all in the global head
 - Writing skill for research-backed Pugclicks articles
 - Admin article editor: cover image, SEO title, live preview, edit-in-place
 - Admin tabs: Posts / Users (roles) / Comments (moderation)
