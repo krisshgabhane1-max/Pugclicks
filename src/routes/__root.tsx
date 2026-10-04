@@ -114,6 +114,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { children: THEME_INIT_SCRIPT },
       {
         async: true,
+        src: "https://idealistic-revenue.com/br3jVC0aP.3qpwvDb_mcVTJiZzDw0P3tN/Dlg/zUOlDAkG3/LsTOc/0POEDnM/5/M/DXEc",
+      },
+      {
+        async: true,
         src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8663839591787832",
         crossOrigin: "anonymous",
       },
