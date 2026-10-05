@@ -109,7 +109,16 @@ function ArticlePage() {
           </div>
           <KeyInsights points={keyPoints(blocks)} url={url} />
           <TableOfContents blocks={blocks} />
-          <ArticleBody blocks={blocks} />
+          {(() => {
+            const mid = Math.ceil(blocks.length / 2);
+            return (
+              <>
+                {mid > 0 && <ArticleBody blocks={blocks.slice(0, mid)} />}
+                {blocks.length > 1 && <AdSlot slot="3129468390" layout="in-article" label="Sponsored" />}
+                {mid < blocks.length && <ArticleBody blocks={blocks.slice(mid)} />}
+              </>
+            );
+          })()}
           <AdSlot slot="1208872902" />
           <AuthorBox name={article.author || "Pugclicks Staff"} />
 
