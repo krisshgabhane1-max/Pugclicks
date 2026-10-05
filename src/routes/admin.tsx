@@ -1,12 +1,8 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
-import { useState } from "react";
-import { toast } from "sonner";
 import { SiteLayout } from "@/components/site-layout";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { claimAdmin } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -32,26 +28,6 @@ const TABS = [
 
 function AdminLayout() {
   const { user, isAdmin, loading } = useAuth();
-  const [claiming, setClaiming] = useState(false);
-  const claimAdminFn = useServerFn(claimAdmin);
-
-  async function handleClaimAdmin() {
-    setClaiming(true);
-    try {
-      const result = await claimAdminFn();
-      if (result.granted) {
-        toast.success("Admin access granted");
-        window.location.reload();
-      } else {
-        toast.error("An admin already exists. Ask them to grant you access.");
-      }
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Could not claim admin access");
-    } finally {
-      setClaiming(false);
-    }
-  }
-
   async function signOut() {
     await supabase.auth.signOut();
     window.location.href = "/";
