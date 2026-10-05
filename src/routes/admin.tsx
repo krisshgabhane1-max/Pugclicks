@@ -1,22 +1,18 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
-import { useState } from "react";
-import { toast } from "sonner";
 import { SiteLayout } from "@/components/site-layout";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { claimAdmin } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Editor Dashboard — Pugclicks" },
-      { name: "description", content: "Create, edit, publish and delete Pugclicks articles." },
-      { property: "og:title", content: "Editor Dashboard — Pugclicks" },
-      { property: "og:description", content: "Pugclicks publishing dashboard for editors." },
+      { title: "Pugclicks" },
+      
+      
+      
       { property: "og:type", content: "website" },
-      { name: "robots", content: "noindex" },
+      { name: "robots", content: "noindex, nofollow, noarchive" },
     ],
   }),
   component: AdminLayout,
@@ -32,26 +28,6 @@ const TABS = [
 
 function AdminLayout() {
   const { user, isAdmin, loading } = useAuth();
-  const [claiming, setClaiming] = useState(false);
-  const claimAdminFn = useServerFn(claimAdmin);
-
-  async function handleClaimAdmin() {
-    setClaiming(true);
-    try {
-      const result = await claimAdminFn();
-      if (result.granted) {
-        toast.success("Admin access granted");
-        window.location.reload();
-      } else {
-        toast.error("An admin already exists. Ask them to grant you access.");
-      }
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Could not claim admin access");
-    } finally {
-      setClaiming(false);
-    }
-  }
-
   async function signOut() {
     await supabase.auth.signOut();
     window.location.href = "/";
@@ -65,34 +41,15 @@ function AdminLayout() {
     );
   }
 
-  if (!user) {
+  if (!user || !isAdmin) {
+    // Hidden: anyone without an admin role sees a plain "not found" page.
     return (
       <SiteLayout>
-        <div className="container-page max-w-md py-20">
-          <h1 className="text-3xl">Editor dashboard</h1>
-          <p className="mt-2 text-muted-foreground">Sign in with an editor account to continue.</p>
+        <div className="container-page max-w-md py-20 text-center">
+          <h1 className="text-3xl">Page not found</h1>
+          <p className="mt-2 text-muted-foreground">The page you are looking for does not exist.</p>
           <Button asChild className="mt-6">
-            <Link to="/auth">Go to sign in</Link>
-          </Button>
-        </div>
-      </SiteLayout>
-    );
-  }
-
-  if (!isAdmin) {
-    return (
-      <SiteLayout>
-        <div className="container-page max-w-md py-20">
-          <h1 className="text-3xl">Almost there</h1>
-          <p className="mt-2 text-muted-foreground">
-            Signed in as {user.email}, but this account has no admin role yet. If you are setting up the site,
-            claim admin now — this works only while no admin exists.
-          </p>
-          <Button className="mt-6" onClick={handleClaimAdmin} disabled={claiming}>
-            Claim admin access
-          </Button>
-          <Button variant="secondary" className="mt-3 w-full" onClick={signOut}>
-            Sign out
+            <Link to="/">Back to home</Link>
           </Button>
         </div>
       </SiteLayout>

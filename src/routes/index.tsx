@@ -18,7 +18,7 @@ import {
 
 const homeQuery = queryOptions({
   queryKey: ["articles", "home"],
-  queryFn: () => listPublishedArticles({ data: { limit: 24 } }),
+  queryFn: () => listPublishedArticles({ data: {} }),
 });
 
 const TITLE = "Pugclicks — AI & Technology, Made Simple";
@@ -56,6 +56,16 @@ function TopicIcon({ slug }: { slug: string }) {
       <Icon className="h-5 w-5" aria-hidden />
     </span>
   );
+}
+
+function groupByCategory<T extends { category: string }>(list: T[]): [string, T[]][] {
+  const map = new Map<string, T[]>();
+  for (const a of list) {
+    const arr = map.get(a.category) ?? [];
+    arr.push(a);
+    map.set(a.category, arr);
+  }
+  return [...map.entries()];
 }
 
 function Home() {
@@ -151,26 +161,29 @@ function Home() {
         </div>
       </section>
 
-      {/* Latest articles */}
-      <section className="container-page pt-14 sm:pt-20">
-        <div className="mb-5 flex items-end justify-between gap-4">
-          <h2 className="text-2xl">Latest Guides</h2>
-          <Link to="/category/$slug" params={{ slug: "guides" }} className="text-sm font-semibold text-primary">
-            View all
-          </Link>
-        </div>
-        {rest.length > 0 ? (
+      {/* All published articles, grouped by category */}
+      {rest.length === 0 && (
+        <section className="container-page pt-14 sm:pt-20">
+          <p className="text-sm text-muted-foreground">No published articles yet.</p>
+        </section>
+      )}
+      {groupByCategory(articles).map(([cat, items]) => (
+        <section key={cat} className="container-page pt-14 sm:pt-20" aria-labelledby={`cat-${cat}`}>
+          <div className="mb-5 flex items-end justify-between gap-4">
+            <h2 id={`cat-${cat}`} className="text-2xl">
+              {categoryName(cat)} <span className="text-base font-medium text-muted-foreground">({items.length})</span>
+            </h2>
+            <Link to="/category/$slug" params={{ slug: cat }} className="text-sm font-semibold text-primary">
+              View all
+            </Link>
+          </div>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {rest.slice(0, 9).map((a) => (
+            {items.map((a) => (
               <ArticleCard key={a.id} article={a} />
             ))}
           </div>
-        ) : (
-          <p className="text-sm text-muted-foreground">
-            No published articles yet. Sign in to the editor dashboard to publish your first guide.
-          </p>
-        )}
-      </section>
+        </section>
+      ))}
 
       <AdSlot />
 
