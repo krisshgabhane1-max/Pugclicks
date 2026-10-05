@@ -118,6 +118,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         async: true,
+        src: "https://idealistic-revenue.com/bl3.VT0wPd3YprvYb/mYVBJEZWD/0q3/NcDLgR2dNyDZAD5NL/T_cj0hO/DzY_0lM/TSMh",
+      },
+      {
+        async: true,
         src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8663839591787832",
         crossOrigin: "anonymous",
       },
