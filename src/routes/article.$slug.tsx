@@ -111,11 +111,13 @@ function ArticlePage() {
           <TableOfContents blocks={blocks} />
           {(() => {
             const mid = Math.ceil(blocks.length / 2);
+            const first = blocks.length > 1 ? blocks.slice(0, mid) : blocks;
+            const second = blocks.length > 1 ? blocks.slice(mid) : [];
             return (
               <>
-                {mid > 0 && <ArticleBody blocks={blocks.slice(0, mid)} />}
-                {blocks.length > 1 && <AdSlot slot="3129468390" layout="in-article" label="Sponsored" />}
-                {mid < blocks.length && <ArticleBody blocks={blocks.slice(mid)} />}
+                {first.length > 0 && <ArticleBody blocks={first} />}
+                <AdSlot slot="3129468390" layout="in-article" label="Sponsored" />
+                {second.length > 0 && <ArticleBody blocks={second} />}
               </>
             );
           })()}
