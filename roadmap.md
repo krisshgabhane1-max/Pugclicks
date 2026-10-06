@@ -1,25 +1,43 @@
 # Pugclicks roadmap
 
-## Done
-- AdSense script + `google-adsense-account` meta tag in the global head, on every page
-- Google site-verification file
-- HilltopAds: verification meta tags + referrer meta + script link, all in the global head
-- Writing skill for research-backed Pugclicks articles
-- Admin article editor: cover image, SEO title, live preview, edit-in-place
-- Admin tabs: Posts / Users (roles) / Comments (moderation)
-- Reader accounts: /login, /signup, /forgot-password, /reset-password, /profile, /notifications
-- Article engagement: like, comment, share (phone share sheet + copy link + WhatsApp)
-- Photo picker: upload from gallery/files or paste an image link
+## Done this session
+- [x] Admin page hidden (shows "Page not found" to non-admins), robots Disallow: /admin, noindex/nofollow/noarchive
+- [x] Homepage lists every published article grouped by category
+- [x] Thumbnails auto-fit, fully visible (object-contain + blurred fill)
 
-## In progress
-- Photo picker wired into the article editor
-- Site editing INSIDE /admin only (no public /editor page — visitors must never edit)
-- Hide the admin link from the footer
+## In progress (this turn)
+- [ ] Homepage redesign: breaking strip, hero + 2 secondary, latest feed, trending, category blocks (1 large + 3 small), editor's picks, newsletter, richer footer
+- [ ] Live "X hours ago" timestamps (timeAgo helper, updated badge)
+- [ ] RSS feed at /rss.xml
+- [ ] Multiple categories per article (movies & series etc.)
+- [ ] New categories: comics, netflix, f1
+- [ ] Trending from real page views (article_views table + tracker)
 
-## Next
-- /admin site tab: homepage headlines, button labels and links, hero photo, section order, show/hide
-- /admin SEO tab: page titles, descriptions, share image
-- /credits public page: thank-you links to Google, ChatGPT and other tools, each opening its official page
-- /referral public page: recommended-tool links, editable from admin
-- Real Pugclicks logo used for link previews (og:image) and the site icon
-- Publish so the live site carries the AdSense tag
+## Next (after this turn, in order)
+- [ ] Scheduled publishing (scheduled_at + auto-publish)
+- [ ] Autosave drafts in admin editor
+- [ ] Article revision history + restore
+- [ ] Editor's picks flag in admin (featured toggle)
+- [ ] Per-article index/noindex control
+- [ ] Content expiration/archive
+- [ ] Admin notification center (errors, failed publishing)
+- [ ] Related articles engine improvements
+- [ ] Internal search filters (category, date)
+- [ ] Custom 404/500 pages polish
+- [ ] Maintenance mode toggle
+
+## Later (needs more design/decisions)
+- [ ] Author profiles (real names/bios needed from user — no invented info)
+- [ ] Source database with reusable source profiles
+- [ ] Fact-check status + AI-content/editorial review status
+- [ ] Content approval workflow
+- [ ] Breaking-news/live-update mode
+- [ ] Redirect manager
+- [ ] Broken-link scanner
+- [ ] Admin activity/audit log + login/security log
+- [ ] Database backup/restore controls
+- [ ] Media usage tracker + image copyright/license/source tracker
+- [ ] Content performance dashboard (views, engagement, CTR, search traffic)
+- [ ] Duplicate-content detector
+- [ ] Webhook/event system for auto-publishing
+- [ ] System health/status page
