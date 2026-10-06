@@ -43,17 +43,45 @@ export type Database = {
           },
         ]
       }
+      article_views: {
+        Row: {
+          article_id: string
+          id: string
+          viewed_at: string
+        }
+        Insert: {
+          article_id: string
+          id?: string
+          viewed_at?: string
+        }
+        Update: {
+          article_id?: string
+          id?: string
+          viewed_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "article_views_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "articles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       articles: {
         Row: {
           author: string
           author_id: string | null
           body: string
+          categories: string[]
           category: string
           cover_image: string
           created_at: string
           excerpt: string
           id: string
           image_alt: string
+          is_editors_pick: boolean
           published_at: string | null
           seo_title: string
           slug: string
@@ -65,12 +93,14 @@ export type Database = {
           author?: string
           author_id?: string | null
           body?: string
+          categories?: string[]
           category: string
           cover_image?: string
           created_at?: string
           excerpt?: string
           id?: string
           image_alt?: string
+          is_editors_pick?: boolean
           published_at?: string | null
           seo_title?: string
           slug: string
@@ -82,12 +112,14 @@ export type Database = {
           author?: string
           author_id?: string | null
           body?: string
+          categories?: string[]
           category?: string
           cover_image?: string
           created_at?: string
           excerpt?: string
           id?: string
           image_alt?: string
+          is_editors_pick?: boolean
           published_at?: string | null
           seo_title?: string
           slug?: string
