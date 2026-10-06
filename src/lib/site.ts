@@ -22,6 +22,9 @@ export const CATEGORIES: Category[] = [
   { slug: "movies", name: "Movies", blurb: "Movie guides, reviews and where to stream them.", emoji: "🎬" },
   { slug: "series", name: "Series", blurb: "TV and web series explained, ranked and reviewed.", emoji: "📺" },
   { slug: "games", name: "Games", blurb: "Gaming guides, tips and the tech behind games.", emoji: "🎮" },
+  { slug: "comics", name: "Comics", blurb: "Comic book news, characters and adaptations.", emoji: "🦸" },
+  { slug: "netflix", name: "Netflix", blurb: "Netflix releases, guides and what to watch.", emoji: "🍿" },
+  { slug: "f1", name: "F1", blurb: "Formula 1 news, race guides and the tech behind the cars.", emoji: "🏎️" },
 ];
 
 /** Categories shown in the top-left menu. */
@@ -43,6 +46,19 @@ export function formatDate(value: string | null | undefined) {
     month: "short",
     year: "numeric",
   });
+}
+
+export function timeAgo(value: string | null | undefined) {
+  if (!value) return "";
+  const diff = Date.now() - new Date(value).getTime();
+  const minutes = Math.floor(diff / 60000);
+  if (minutes < 1) return "Just now";
+  if (minutes < 60) return `${minutes} min ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+  const days = Math.floor(hours / 24);
+  if (days < 7) return `${days} day${days === 1 ? "" : "s"} ago`;
+  return formatDate(value);
 }
 
 export function readingTime(body: string | null | undefined) {

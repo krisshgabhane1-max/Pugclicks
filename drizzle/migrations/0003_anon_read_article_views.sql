@@ -1,0 +1,1 @@
+GRANT SELECT ON public.article_views TO anon; CREATE POLICY "View counts are publicly readable" ON public.article_views FOR SELECT TO anon USING (true);

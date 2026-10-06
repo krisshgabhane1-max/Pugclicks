@@ -22,6 +22,13 @@
       "when": 1791249280005,
       "tag": "0002_multi_category_trending_editors_pick",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791249346608,
+      "tag": "0003_anon_read_article_views",
+      "breakpoints": true
     }
   ]
 }
