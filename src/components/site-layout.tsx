@@ -14,9 +14,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const NAV = [
-  { slug: "ai", name: "AI" },
-  { slug: "tech", name: "Tech" },
-  { slug: "guides", name: "Guides" },
+  { slug: "movies", name: "Movies & Series" },
+  { slug: "games", name: "Games" },
+  { slug: "sports", name: "Sports" },
+  { slug: "f1", name: "F1" },
+  { slug: "ai", name: "AI & Tech" },
 ];
 
 function SearchForm({ onSubmit }: { onSubmit?: () => void }) {
@@ -200,6 +202,31 @@ export function SiteFooter() {
                 Recommended tools
               </Link>
             </li>
+            <li>
+              <Link to="/about" className="hover:text-foreground">
+                Editorial policy
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="hover:text-foreground">
+                Corrections
+              </Link>
+            </li>
+            <li>
+              <Link to="/credits" className="hover:text-foreground">
+                Sources
+              </Link>
+            </li>
+            <li>
+              <a href="/sitemap.xml" className="hover:text-foreground">
+                Sitemap
+              </a>
+            </li>
+            <li>
+              <a href="/rss.xml" className="hover:text-foreground">
+                RSS feed
+              </a>
+            </li>
           </ul>
         </div>
         <div>
@@ -213,6 +240,11 @@ export function SiteFooter() {
             <li>
               <Link to="/terms" className="hover:text-foreground">
                 Terms
+              </Link>
+            </li>
+            <li>
+              <Link to="/privacy" className="hover:text-foreground">
+                Cookie settings
               </Link>
             </li>
           </ul>

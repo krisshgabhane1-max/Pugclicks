@@ -31,6 +31,8 @@ const EMPTY = {
   seo_title: "",
   slug: "",
   category: "ai",
+  categories: ["ai"] as string[],
+  is_editors_pick: false,
   excerpt: "",
   body: "",
   author: "Pugclicks Staff",
@@ -39,7 +41,7 @@ const EMPTY = {
 };
 
 const SELECT =
-  "id, slug, title, seo_title, category, excerpt, body, author, cover_image, image_alt, status, published_at";
+  "id, slug, title, seo_title, category, categories, is_editors_pick, excerpt, body, author, cover_image, image_alt, status, published_at, updated_at";
 
 function AdminPosts() {
   const { user, isAdmin } = useAuth();
@@ -71,7 +73,9 @@ function AdminPosts() {
         title: form.title,
         seo_title: form.seo_title,
         slug: form.slug || slugify(form.title),
-        category: form.category,
+        category: form.categories[0] ?? form.category,
+        categories: form.categories,
+        is_editors_pick: form.is_editors_pick,
         excerpt: form.excerpt,
         body: form.body,
         author: form.author,
@@ -189,21 +193,48 @@ function AdminPosts() {
               <span className="text-xs text-muted-foreground">/article/{form.slug || "your-slug"}</span>
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="category">Category</Label>
-              <select
-                id="category"
-                value={form.category}
-                onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
-                className="h-10 rounded-md border border-input bg-secondary px-3 text-sm"
-              >
-                {CATEGORIES.map((c) => (
-                  <option key={c.slug} value={c.slug}>
-                    {c.name}
-                  </option>
-                ))}
-              </select>
+              <Label>Categories (pick one or more)</Label>
+              <div className="flex flex-wrap gap-2">
+                {CATEGORIES.map((c) => {
+                  const active = form.categories.includes(c.slug);
+                  return (
+                    <button
+                      key={c.slug}
+                      type="button"
+                      aria-pressed={active}
+                      onClick={() =>
+                        setForm((f) => {
+                          const next = active
+                            ? f.categories.filter((s) => s !== c.slug)
+                            : [...f.categories, c.slug];
+                          return { ...f, categories: next.length > 0 ? next : f.categories };
+                        })
+                      }
+                      className={
+                        active
+                          ? "rounded-full bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground"
+                          : "rounded-full border border-border bg-secondary px-3 py-1.5 text-xs font-semibold text-secondary-foreground"
+                      }
+                    >
+                      {c.name}
+                    </button>
+                  );
+                })}
+              </div>
+              <span className="text-xs text-muted-foreground">
+                First picked is the main category. e.g. Movies + Series.
+              </span>
             </div>
           </div>
+          <label className="flex items-center gap-2 text-sm font-medium">
+            <input
+              type="checkbox"
+              checked={form.is_editors_pick}
+              onChange={(e) => setForm((f) => ({ ...f, is_editors_pick: e.target.checked }))}
+              className="h-4 w-4 accent-primary"
+            />
+            Editor's pick (featured on the homepage)
+          </label>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="grid gap-2">
               <Label htmlFor="author">Author</Label>
@@ -332,7 +363,10 @@ function AdminPosts() {
                 {articles.map((a) => (
                   <tr key={a.id} className="border-t border-border align-top">
                     <td className="p-4 font-semibold">{a.title}</td>
-                    <td className="p-4 text-muted-foreground">{categoryName(a.category)}</td>
+                    <td className="p-4 text-muted-foreground">
+                      {[...new Set([a.category, ...(a.categories ?? [])])].map(categoryName).join(" · ")}
+                      {a.is_editors_pick && <span className="ml-1 text-primary">★</span>}
+                    </td>
                     <td className="p-4">
                       <span
                         className={
@@ -357,6 +391,9 @@ function AdminPosts() {
                               seo_title: a.seo_title ?? "",
                               slug: a.slug,
                               category: a.category,
+                              categories:
+                                a.categories && a.categories.length > 0 ? a.categories : [a.category],
+                              is_editors_pick: a.is_editors_pick ?? false,
                               excerpt: a.excerpt,
                               body: a.body,
                               author: a.author,

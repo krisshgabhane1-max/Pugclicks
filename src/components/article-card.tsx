@@ -2,7 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Sparkles } from "lucide-react";
 import type { Article } from "@/lib/articles.functions";
-import { categoryName, formatDate, readingTime } from "@/lib/site";
+import { articleCategories } from "@/lib/articles.functions";
+import { categoryName, readingTime, timeAgo } from "@/lib/site";
 
 export function ArticleMedia({
   alt,
@@ -70,7 +71,7 @@ export function ArticleCard({ article, featured = false }: { article: Article; f
           className={featured ? "h-48" : "h-40"}
         />
         <div className="p-5">
-          <span className="kicker">{categoryName(article.category)}</span>
+          <span className="kicker">{articleCategories(article).map(categoryName).join(" · ")}</span>
           <h3
             className={`mt-2 leading-snug group-hover:text-primary ${featured ? "text-xl sm:text-2xl" : "text-lg"}`}
           >
@@ -78,7 +79,7 @@ export function ArticleCard({ article, featured = false }: { article: Article; f
           </h3>
           <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{article.excerpt}</p>
           <p className="mt-3 text-xs text-muted-foreground">
-            {readingTime(article.body)} · {formatDate(article.published_at)}
+            {readingTime(article.body)} · {timeAgo(article.published_at)}
           </p>
         </div>
       </Link>

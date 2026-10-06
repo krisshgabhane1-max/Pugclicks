@@ -1,10 +1,11 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { ArticleCard, ArticleMedia } from "@/components/article-card";
 import { Breadcrumbs, SiteLayout } from "@/components/site-layout";
 import { Button } from "@/components/ui/button";
-import { getArticleBySlug } from "@/lib/articles.functions";
-import { categoryName, formatDate, RESPONSE_PROMISE } from "@/lib/site";
+import { articleCategories, getArticleBySlug, trackArticleView } from "@/lib/articles.functions";
+import { categoryName, timeAgo, RESPONSE_PROMISE } from "@/lib/site";
 import { ArticleEngagement } from "@/components/article-engagement";
 import { AdSlot } from "@/components/ad-slot";
 import { ArticleBody, AuthorBox, KeyInsights, ReadAloud, ShareRow, TableOfContents, keyPoints, parseBody } from "@/components/article-extras";
@@ -56,6 +57,7 @@ export const Route = createFileRoute("/article/$slug")({
                 description: article.excerpt,
                 author: { "@type": "Organization", name: article.author },
                 datePublished: article.published_at,
+                dateModified: article.updated_at,
                 mainEntityOfPage: `${BASE}/article/${article.slug}`,
                 publisher: { "@type": "Organization", name: "Pugclicks", url: BASE },
                 ...(article.cover_image?.startsWith("https://") ? { image: [article.cover_image] } : {}),
@@ -75,6 +77,16 @@ function ArticlePage() {
   const article = data.article!;
   const blocks = parseBody(article.body);
   const url = `${BASE}/article/${article.slug}`;
+  const cats = articleCategories(article);
+  const wasUpdated =
+    article.updated_at && article.published_at
+      ? new Date(article.updated_at).getTime() - new Date(article.published_at).getTime() >
+        24 * 60 * 60 * 1000
+      : false;
+
+  useEffect(() => {
+    trackArticleView({ data: { articleId: article.id } }).catch(() => {});
+  }, [article.id]);
 
   return (
     <SiteLayout>
@@ -82,14 +94,19 @@ function ArticlePage() {
         <div className="mx-auto max-w-3xl">
           <Breadcrumbs
             items={[
-              { label: categoryName(article.category), to: `/category/${article.category}` },
+              { label: categoryName(cats[0] ?? article.category), to: `/category/${cats[0] ?? article.category}` },
               { label: article.title },
             ]}
           />
-          <span className="kicker mt-6 block">{categoryName(article.category)}</span>
+          <span className="kicker mt-6 block">{cats.map(categoryName).join(" · ")}</span>
           <h1 className="mt-2 text-4xl leading-[1.05] sm:text-5xl">{article.title}</h1>
           <p className="mt-3 text-sm text-muted-foreground">
-            By {article.author} · {formatDate(article.published_at)}
+            By {article.author} · {timeAgo(article.published_at)}
+            {wasUpdated && (
+              <span className="ml-2 rounded-full bg-secondary px-2 py-0.5 text-xs font-semibold text-secondary-foreground">
+                Updated {timeAgo(article.updated_at)}
+              </span>
+            )}
           </p>
 
           <div className="mt-6 overflow-hidden rounded-xl border border-border bg-muted">
