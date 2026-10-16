@@ -290,8 +290,8 @@ function Home() {
       {/* Category sections: one large story + smaller cards */}
       {SECTION_GROUPS.map((group) => {
         const items = articles.filter((a) => inGroup(a, group.slugs));
-        if (items.length === 0) return null;
         const [big, ...small] = items;
+        if (!big) return null;
         return (
           <section
             key={group.name}
