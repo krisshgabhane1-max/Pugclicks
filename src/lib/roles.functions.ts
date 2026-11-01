@@ -11,7 +11,7 @@ export type AdminAccount = {
 };
 
 /** Throws unless the caller holds the admin role (checked as the caller, under RLS). */
-async function assertAdmin(context: { supabase: any; userId: string }) {
+export async function assertAdmin(context: { supabase: any; userId: string }) {
   const { data, error } = await context.supabase
     .from("user_roles")
     .select("id")

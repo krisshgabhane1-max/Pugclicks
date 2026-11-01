@@ -287,6 +287,30 @@ export type Database = {
         }
         Relationships: []
       }
+      security_reports: {
+        Row: {
+          analysis: string
+          created_at: string
+          description: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          analysis: string
+          created_at?: string
+          description: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          analysis?: string
+          created_at?: string
+          description?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       site_content: {
         Row: {
           key: string

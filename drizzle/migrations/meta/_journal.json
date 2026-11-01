@@ -29,6 +29,13 @@
       "when": 1791249346608,
       "tag": "0003_anon_read_article_views",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793508411213,
+      "tag": "0004_create_security_reports",
+      "breakpoints": true
     }
   ]
 }

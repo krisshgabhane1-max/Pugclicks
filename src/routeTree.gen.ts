@@ -32,8 +32,10 @@ import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminCommentsRouteImport } from './routes/admin.comments'
+import { Route as AdminSecurityRouteImport } from './routes/admin.security'
 import { Route as AdminSeoRouteImport } from './routes/admin.seo'
 import { Route as AdminSiteRouteImport } from './routes/admin.site'
+import { Route as AdminSubscribersRouteImport } from './routes/admin.subscribers'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
@@ -153,6 +155,11 @@ const AdminCommentsRoute = AdminCommentsRouteImport.update({
   path: '/comments',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminSecurityRoute = AdminSecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminSeoRoute = AdminSeoRouteImport.update({
   id: '/seo',
   path: '/seo',
@@ -161,6 +168,11 @@ const AdminSeoRoute = AdminSeoRouteImport.update({
 const AdminSiteRoute = AdminSiteRouteImport.update({
   id: '/site',
   path: '/site',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSubscribersRoute = AdminSubscribersRouteImport.update({
+  id: '/subscribers',
+  path: '/subscribers',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminUsersRoute = AdminUsersRouteImport.update({
@@ -202,8 +214,10 @@ export interface FileRoutesByFullPath {
   '/thank-you': typeof ThankYouRoute
   '/tools': typeof ToolsRoute
   '/admin/comments': typeof AdminCommentsRoute
+  '/admin/security': typeof AdminSecurityRoute
   '/admin/seo': typeof AdminSeoRoute
   '/admin/site': typeof AdminSiteRoute
+  '/admin/subscribers': typeof AdminSubscribersRoute
   '/admin/users': typeof AdminUsersRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/category/$slug': typeof CategorySlugRoute
@@ -231,8 +245,10 @@ export interface FileRoutesByTo {
   '/thank-you': typeof ThankYouRoute
   '/tools': typeof ToolsRoute
   '/admin/comments': typeof AdminCommentsRoute
+  '/admin/security': typeof AdminSecurityRoute
   '/admin/seo': typeof AdminSeoRoute
   '/admin/site': typeof AdminSiteRoute
+  '/admin/subscribers': typeof AdminSubscribersRoute
   '/admin/users': typeof AdminUsersRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/category/$slug': typeof CategorySlugRoute
@@ -262,8 +278,10 @@ export interface FileRoutesById {
   '/thank-you': typeof ThankYouRoute
   '/tools': typeof ToolsRoute
   '/admin/comments': typeof AdminCommentsRoute
+  '/admin/security': typeof AdminSecurityRoute
   '/admin/seo': typeof AdminSeoRoute
   '/admin/site': typeof AdminSiteRoute
+  '/admin/subscribers': typeof AdminSubscribersRoute
   '/admin/users': typeof AdminUsersRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/category/$slug': typeof CategorySlugRoute
@@ -294,8 +312,10 @@ export interface FileRouteTypes {
     | '/thank-you'
     | '/tools'
     | '/admin/comments'
+    | '/admin/security'
     | '/admin/seo'
     | '/admin/site'
+    | '/admin/subscribers'
     | '/admin/users'
     | '/article/$slug'
     | '/category/$slug'
@@ -323,8 +343,10 @@ export interface FileRouteTypes {
     | '/thank-you'
     | '/tools'
     | '/admin/comments'
+    | '/admin/security'
     | '/admin/seo'
     | '/admin/site'
+    | '/admin/subscribers'
     | '/admin/users'
     | '/article/$slug'
     | '/category/$slug'
@@ -353,8 +375,10 @@ export interface FileRouteTypes {
     | '/thank-you'
     | '/tools'
     | '/admin/comments'
+    | '/admin/security'
     | '/admin/seo'
     | '/admin/site'
+    | '/admin/subscribers'
     | '/admin/users'
     | '/article/$slug'
     | '/category/$slug'
@@ -550,6 +574,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCommentsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/security': {
+      id: '/admin/security'
+      path: '/security'
+      fullPath: '/admin/security'
+      preLoaderRoute: typeof AdminSecurityRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/seo': {
       id: '/admin/seo'
       path: '/seo'
@@ -562,6 +593,13 @@ declare module '@tanstack/react-router' {
       path: '/site'
       fullPath: '/admin/site'
       preLoaderRoute: typeof AdminSiteRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/subscribers': {
+      id: '/admin/subscribers'
+      path: '/subscribers'
+      fullPath: '/admin/subscribers'
+      preLoaderRoute: typeof AdminSubscribersRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/users': {
@@ -590,16 +628,20 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminCommentsRoute: typeof AdminCommentsRoute
+  AdminSecurityRoute: typeof AdminSecurityRoute
   AdminSeoRoute: typeof AdminSeoRoute
   AdminSiteRoute: typeof AdminSiteRoute
+  AdminSubscribersRoute: typeof AdminSubscribersRoute
   AdminUsersRoute: typeof AdminUsersRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminCommentsRoute: AdminCommentsRoute,
+  AdminSecurityRoute: AdminSecurityRoute,
   AdminSeoRoute: AdminSeoRoute,
   AdminSiteRoute: AdminSiteRoute,
+  AdminSubscribersRoute: AdminSubscribersRoute,
   AdminUsersRoute: AdminUsersRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
