@@ -53,6 +53,11 @@ function Analysis({ text }: { text: string }) {
     }
   }
 
+  /** Renders inline markdown (bold) without raw asterisks. */
+  function inline(text: string): React.ReactNode[] {
+    return text.split(/\*\*/).map((part, i) => (i % 2 === 1 ? <strong key={i}>{part}</strong> : part));
+  }
+
   for (const raw of lines) {
     const line = raw.trim();
     if (!line) {
@@ -63,7 +68,7 @@ function Analysis({ text }: { text: string }) {
       flush();
       blocks.push(
         <h3 key={`h-${blocks.length}`} className="mt-4 text-base font-semibold">
-          {line.replace(/^#{2,3}\s/, "")}
+          {inline(line.replace(/^#{2,3}\s/, ""))}
         </h3>,
       );
     } else if (/^[-*]\s/.test(line)) {
@@ -74,7 +79,7 @@ function Analysis({ text }: { text: string }) {
       numbers.push(line.replace(/^\d+[.)]\s/, ""));
     } else {
       flush();
-      blocks.push(<p key={`p-${blocks.length}`} className="mt-2">{line}</p>);
+      blocks.push(<p key={`p-${blocks.length}`} className="mt-2">{inline(line)}</p>);
     }
   }
   flush();
