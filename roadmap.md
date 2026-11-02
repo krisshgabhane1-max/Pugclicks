@@ -4,16 +4,18 @@
 - [x] Admin page hidden (shows "Page not found" to non-admins), robots Disallow: /admin, noindex/nofollow/noarchive
 - [x] Homepage lists every published article grouped by category
 - [x] Thumbnails auto-fit, fully visible (object-contain + blurred fill)
+- [x] Homepage redesign: breaking strip, hero + 2 secondary, latest feed, trending, category blocks, editor's picks, newsletter, richer footer
+- [x] Live "X hours ago" timestamps (timeAgo helper, updated badge)
+- [x] RSS feed at /rss.xml
+- [x] Multiple categories per article (movies & series etc.)
+- [x] New categories: comics, netflix, f1
+- [x] Trending from real page views (article_views table + tracker)
+- [x] Newsletter signup storage + admin subscriber list (/admin/subscribers, search + remove)
+- [x] AI security advisor (/admin/security): admin describes suspicious activity, AI analyzes and recommends protection steps, reports saved
+- [x] Mobile audit: no horizontal overflow on home/article, menu, forms, admin tabs verified at phone size
 
-## In progress (this turn)
-- [ ] Homepage redesign: breaking strip, hero + 2 secondary, latest feed, trending, category blocks (1 large + 3 small), editor's picks, newsletter, richer footer
-- [ ] Live "X hours ago" timestamps (timeAgo helper, updated badge)
-- [ ] RSS feed at /rss.xml
-- [ ] Multiple categories per article (movies & series etc.)
-- [ ] New categories: comics, netflix, f1
-- [ ] Trending from real page views (article_views table + tracker)
-
-## Next (after this turn, in order)
+## Next (in order)
+- [ ] Email confirmation letters for newsletter (needs the owner's own sending domain — setup pending user decision)
 - [ ] Scheduled publishing (scheduled_at + auto-publish)
 - [ ] Autosave drafts in admin editor
 - [ ] Article revision history + restore
@@ -41,3 +43,4 @@
 - [ ] Duplicate-content detector
 - [ ] Webhook/event system for auto-publishing
 - [ ] System health/status page
+- [ ] SaaS (paid plans / members area) — awaiting user decision on scope
