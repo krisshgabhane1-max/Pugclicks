@@ -1,4 +1,4 @@
-import { createServerFn, getRequest } from "@tanstack/react-start";
+import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { assertAdmin } from "@/lib/roles.functions";
 
@@ -45,7 +45,7 @@ export const analyzeSecurityReport = createServerFn({ method: "POST" })
     const { createResponsesCall, safeAiErrorMessage, LOVABLE_AI_GATEWAY_URL } = await import(
       "@/lib/ai-gateway.server"
     );
-    const request = getRequest();
+    const request = new Request("https://internal/security-report", { method: "POST" });
 
     try {
       const { result } = createResponsesCall(
@@ -59,7 +59,9 @@ export const analyzeSecurityReport = createServerFn({ method: "POST" })
         return { ok: false as const, error: "The AI returned an empty response. Please try again." };
       }
 
-      const { error } = await context.supabase.from("security_reports").insert({ description, analysis });
+      const { error } = await context.supabase
+        .from("security_reports")
+        .insert({ user_id: context.userId, description, analysis });
       if (error) throw new Error(error.message);
 
       return { ok: true as const, analysis };
