@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Menu, Moon, Search, Sun } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import { NewsletterForm } from "@/components/newsletter-form";
+import { trackVisit } from "@/lib/analytics.functions";
 import {
   CATEGORIES,
   CONTACT_EMAIL,

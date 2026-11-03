@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { THEME_INIT_SCRIPT } from "@/hooks/use-theme";
+import { getSiteContent, THEME_DEFAULTS, themeCss } from "@/lib/site-content.functions";
 
 
 function NotFoundComponent() {
@@ -78,6 +79,12 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  loader: async () => {
+    const theme = await getSiteContent()
+      .then((c) => c.theme)
+      .catch(() => THEME_DEFAULTS);
+    return { theme };
+  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -106,7 +113,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&family=Lora:wght@600;700&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
@@ -159,6 +166,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const { theme } = Route.useLoaderData();
   const router = useRouter();
 
   useEffect(() => {
@@ -172,6 +180,8 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      {/* Saved design customizations (accent color, fonts, corners) applied site-wide. */}
+      <style dangerouslySetInnerHTML={{ __html: themeCss(theme) }} />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <Toaster />
