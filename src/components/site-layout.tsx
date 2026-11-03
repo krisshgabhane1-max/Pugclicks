@@ -273,6 +273,20 @@ export function NewsletterCta() {
 }
 
 export function SiteLayout({ children }: { children: ReactNode }) {
+  // Count one visit per page per browser session (no personal data stored).
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (path.startsWith("/admin")) return;
+    const key = `visit:${path}`;
+    try {
+      if (sessionStorage.getItem(key)) return;
+      sessionStorage.setItem(key, "1");
+    } catch {
+      return;
+    }
+    trackVisit({ data: { path, referrer: document.referrer || "" } }).catch(() => {});
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />

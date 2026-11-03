@@ -32,10 +32,12 @@ import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminCommentsRouteImport } from './routes/admin.comments'
+import { Route as AdminDesignRouteImport } from './routes/admin.design'
 import { Route as AdminSecurityRouteImport } from './routes/admin.security'
 import { Route as AdminSeoRouteImport } from './routes/admin.seo'
 import { Route as AdminSiteRouteImport } from './routes/admin.site'
 import { Route as AdminSubscribersRouteImport } from './routes/admin.subscribers'
+import { Route as AdminTrafficRouteImport } from './routes/admin.traffic'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as ArticleSlugRouteImport } from './routes/article.$slug'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
@@ -155,6 +157,11 @@ const AdminCommentsRoute = AdminCommentsRouteImport.update({
   path: '/comments',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminDesignRoute = AdminDesignRouteImport.update({
+  id: '/design',
+  path: '/design',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminSecurityRoute = AdminSecurityRouteImport.update({
   id: '/security',
   path: '/security',
@@ -173,6 +180,11 @@ const AdminSiteRoute = AdminSiteRouteImport.update({
 const AdminSubscribersRoute = AdminSubscribersRouteImport.update({
   id: '/subscribers',
   path: '/subscribers',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTrafficRoute = AdminTrafficRouteImport.update({
+  id: '/traffic',
+  path: '/traffic',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminUsersRoute = AdminUsersRouteImport.update({
@@ -214,10 +226,12 @@ export interface FileRoutesByFullPath {
   '/thank-you': typeof ThankYouRoute
   '/tools': typeof ToolsRoute
   '/admin/comments': typeof AdminCommentsRoute
+  '/admin/design': typeof AdminDesignRoute
   '/admin/security': typeof AdminSecurityRoute
   '/admin/seo': typeof AdminSeoRoute
   '/admin/site': typeof AdminSiteRoute
   '/admin/subscribers': typeof AdminSubscribersRoute
+  '/admin/traffic': typeof AdminTrafficRoute
   '/admin/users': typeof AdminUsersRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/category/$slug': typeof CategorySlugRoute
@@ -245,10 +259,12 @@ export interface FileRoutesByTo {
   '/thank-you': typeof ThankYouRoute
   '/tools': typeof ToolsRoute
   '/admin/comments': typeof AdminCommentsRoute
+  '/admin/design': typeof AdminDesignRoute
   '/admin/security': typeof AdminSecurityRoute
   '/admin/seo': typeof AdminSeoRoute
   '/admin/site': typeof AdminSiteRoute
   '/admin/subscribers': typeof AdminSubscribersRoute
+  '/admin/traffic': typeof AdminTrafficRoute
   '/admin/users': typeof AdminUsersRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/category/$slug': typeof CategorySlugRoute
@@ -278,10 +294,12 @@ export interface FileRoutesById {
   '/thank-you': typeof ThankYouRoute
   '/tools': typeof ToolsRoute
   '/admin/comments': typeof AdminCommentsRoute
+  '/admin/design': typeof AdminDesignRoute
   '/admin/security': typeof AdminSecurityRoute
   '/admin/seo': typeof AdminSeoRoute
   '/admin/site': typeof AdminSiteRoute
   '/admin/subscribers': typeof AdminSubscribersRoute
+  '/admin/traffic': typeof AdminTrafficRoute
   '/admin/users': typeof AdminUsersRoute
   '/article/$slug': typeof ArticleSlugRoute
   '/category/$slug': typeof CategorySlugRoute
@@ -312,10 +330,12 @@ export interface FileRouteTypes {
     | '/thank-you'
     | '/tools'
     | '/admin/comments'
+    | '/admin/design'
     | '/admin/security'
     | '/admin/seo'
     | '/admin/site'
     | '/admin/subscribers'
+    | '/admin/traffic'
     | '/admin/users'
     | '/article/$slug'
     | '/category/$slug'
@@ -343,10 +363,12 @@ export interface FileRouteTypes {
     | '/thank-you'
     | '/tools'
     | '/admin/comments'
+    | '/admin/design'
     | '/admin/security'
     | '/admin/seo'
     | '/admin/site'
     | '/admin/subscribers'
+    | '/admin/traffic'
     | '/admin/users'
     | '/article/$slug'
     | '/category/$slug'
@@ -375,10 +397,12 @@ export interface FileRouteTypes {
     | '/thank-you'
     | '/tools'
     | '/admin/comments'
+    | '/admin/design'
     | '/admin/security'
     | '/admin/seo'
     | '/admin/site'
     | '/admin/subscribers'
+    | '/admin/traffic'
     | '/admin/users'
     | '/article/$slug'
     | '/category/$slug'
@@ -574,6 +598,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCommentsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/design': {
+      id: '/admin/design'
+      path: '/design'
+      fullPath: '/admin/design'
+      preLoaderRoute: typeof AdminDesignRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/security': {
       id: '/admin/security'
       path: '/security'
@@ -602,6 +633,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSubscribersRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/traffic': {
+      id: '/admin/traffic'
+      path: '/traffic'
+      fullPath: '/admin/traffic'
+      preLoaderRoute: typeof AdminTrafficRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/users': {
       id: '/admin/users'
       path: '/users'
@@ -628,20 +666,24 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminCommentsRoute: typeof AdminCommentsRoute
+  AdminDesignRoute: typeof AdminDesignRoute
   AdminSecurityRoute: typeof AdminSecurityRoute
   AdminSeoRoute: typeof AdminSeoRoute
   AdminSiteRoute: typeof AdminSiteRoute
   AdminSubscribersRoute: typeof AdminSubscribersRoute
+  AdminTrafficRoute: typeof AdminTrafficRoute
   AdminUsersRoute: typeof AdminUsersRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminCommentsRoute: AdminCommentsRoute,
+  AdminDesignRoute: AdminDesignRoute,
   AdminSecurityRoute: AdminSecurityRoute,
   AdminSeoRoute: AdminSeoRoute,
   AdminSiteRoute: AdminSiteRoute,
   AdminSubscribersRoute: AdminSubscribersRoute,
+  AdminTrafficRoute: AdminTrafficRoute,
   AdminUsersRoute: AdminUsersRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
