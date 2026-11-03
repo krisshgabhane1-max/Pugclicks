@@ -34,6 +34,45 @@ export type CreditsContent = {
   items: { name: string; note: string }[];
 };
 
+export type ThemeContent = {
+  accent: string;
+  font: "classic" | "modern" | "editorial";
+  radius: "soft" | "round" | "sharp";
+};
+
+export const THEME_DEFAULTS: ThemeContent = {
+  accent: "#4F46E5",
+  font: "classic",
+  radius: "round",
+};
+
+/** Builds the CSS that applies the saved theme over the built-in design tokens. */
+export function themeCss(theme: ThemeContent): string {
+  const accent = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(theme.accent) ? theme.accent : THEME_DEFAULTS.accent;
+  const radius = { soft: "0.625rem", round: "0.875rem", sharp: "0.375rem" }[theme.radius] ?? "0.875rem";
+  const display =
+    {
+      classic: '"Inter", system-ui, sans-serif',
+      modern: '"Space Grotesk", "Inter", system-ui, sans-serif',
+      editorial: '"Lora", Georgia, serif',
+    }[theme.font] ?? '"Inter", system-ui, sans-serif';
+  return [
+    ":root{",
+    `--primary:${accent};`,
+    `--ring:${accent};`,
+    `--chart-1:${accent};`,
+    `--accent:color-mix(in oklab,${accent} 10%,var(--background));`,
+    `--accent-foreground:${accent};`,
+    `--radius:${radius};`,
+    `--font-display:${display};`,
+    "}",
+    ".dark{",
+    `--primary:color-mix(in oklab,${accent} 78%,white);`,
+    `--ring:color-mix(in oklab,${accent} 78%,white);`,
+    "}",
+  ].join("");
+}
+
 export type SeoContent = {
   homeTitle: string;
   homeDescription: string;
@@ -107,6 +146,7 @@ export const getSiteContent = createServerFn({ method: "GET" }).handler(async ()
   return {
     home: { ...HOME_DEFAULTS, ...(rows.get("home") ?? {}) } as HomeContent,
     seo: { ...SEO_DEFAULTS, ...(rows.get("seo") ?? {}) } as SeoContent,
+    theme: { ...THEME_DEFAULTS, ...(rows.get("theme") ?? {}) } as ThemeContent,
     referral: { ...REFERRAL_DEFAULTS, ...(rows.get("referral") ?? {}) } as ReferralContent,
     credits: { ...CREDITS_DEFAULTS, ...(rows.get("credits") ?? {}) } as CreditsContent,
   };
