@@ -30,22 +30,15 @@ export function ArticleMedia({
         />
       );
     }
-    // Cards: whole photo visible inside the frame, soft blurred fill behind it.
+    // Cards: the photo fills its frame neatly (edges may be trimmed on odd shapes).
     return (
       <div className={`relative w-full ${className} overflow-hidden bg-muted`}>
-        <img
-          src={src}
-          alt=""
-          aria-hidden
-          loading="lazy"
-          className="absolute inset-0 h-full w-full scale-110 object-cover opacity-60 blur-xl"
-        />
         <img
           src={src}
           alt={alt}
           loading="lazy"
           onError={() => setFailed(true)}
-          className="relative h-full w-full object-contain"
+          className="h-full w-full object-cover"
         />
       </div>
     );
