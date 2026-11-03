@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Menu, Moon, Search, Sun } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import { NewsletterForm } from "@/components/newsletter-form";
+import { trackVisit } from "@/lib/analytics.functions";
 import {
   CATEGORIES,
   CONTACT_EMAIL,
@@ -272,6 +273,20 @@ export function NewsletterCta() {
 }
 
 export function SiteLayout({ children }: { children: ReactNode }) {
+  // Count one visit per page per browser session (no personal data stored).
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (path.startsWith("/admin")) return;
+    const key = `visit:${path}`;
+    try {
+      if (sessionStorage.getItem(key)) return;
+      sessionStorage.setItem(key, "1");
+    } catch {
+      return;
+    }
+    trackVisit({ data: { path, referrer: document.referrer || "" } }).catch(() => {});
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />

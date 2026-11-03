@@ -184,23 +184,25 @@ function SecondaryStory({ article }: { article: Article }) {
 
 function LatestRow({ article }: { article: Article }) {
   return (
-    <article className="group flex gap-4 rounded-2xl border border-border bg-card p-3 shadow-[var(--shadow-card)]">
-      <Link to="/article/$slug" params={{ slug: article.slug }} className="flex w-full gap-4">
+    <article className="group flex gap-3 rounded-2xl border border-border bg-card p-2.5 shadow-[var(--shadow-card)] sm:gap-4 sm:p-3">
+      <Link to="/article/$slug" params={{ slug: article.slug }} className="flex w-full gap-3 sm:gap-4">
         <ArticleMedia
           alt={article.image_alt || article.title}
           src={article.cover_image}
-          className="h-20 w-28 shrink-0 rounded-xl sm:h-24 sm:w-36"
+          className="h-16 w-24 shrink-0 rounded-xl sm:h-24 sm:w-36"
         />
-        <div className="min-w-0 flex-1 py-1">
+        <div className="min-w-0 flex-1 py-0.5">
           <div className="flex flex-wrap items-center gap-2">
             <span className="kicker">{articleCategories(article).map(categoryName).join(" · ")}</span>
             <FreshnessBadge article={article} />
           </div>
-          <h3 className="mt-1 line-clamp-2 leading-snug group-hover:text-primary">{article.title}</h3>
+          <h3 className="mt-0.5 line-clamp-2 text-[15px] leading-snug group-hover:text-primary sm:text-base">
+            {article.title}
+          </h3>
           <p className="mt-1 hidden line-clamp-1 text-sm text-muted-foreground sm:block">
             {article.excerpt}
           </p>
-          <p className="mt-1.5 text-xs text-muted-foreground">
+          <p className="mt-0.5 text-[11px] text-muted-foreground sm:mt-1.5 sm:text-xs">
             {timeAgo(article.published_at)} · {readingTime(article.body)}
           </p>
         </div>
@@ -265,7 +267,7 @@ function Home() {
           <h2 id="trending" className="flex items-center gap-2 text-2xl">
             <Flame className="h-6 w-6 text-primary" aria-hidden /> Trending Now
           </h2>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-3">
             {trending.map((a, i) => (
               <Link
                 key={a.id}
