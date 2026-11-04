@@ -32,7 +32,7 @@ export function ArticleMedia({
     }
     // Cards: the photo fills its frame neatly (edges may be trimmed on odd shapes).
     return (
-      <div className={`relative w-full ${className} overflow-hidden bg-muted`}>
+      <div className={`relative ${className} overflow-hidden bg-muted`}>
         <img
           src={src}
           alt={alt}
