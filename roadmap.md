@@ -13,9 +13,12 @@
 - [x] Newsletter signup storage + admin subscriber list (/admin/subscribers, search + remove)
 - [x] AI security advisor (/admin/security): admin describes suspicious activity, AI analyzes and recommends protection steps, reports saved
 - [x] Mobile audit: no horizontal overflow on home/article, menu, forms, admin tabs verified at phone size
+- [x] Mobile feed fix: compact Latest rows (thumbnail + clear title + time, ~2-3 cards per screen), card images fill their frames (object-cover), trending 2-col on phones
+- [x] Theme customizer (/admin/design): accent color, font style, corner style — saved to site_content, applied site-wide including dark mode, with live preview
+- [x] Traffic dashboard (/admin/traffic): visits today/7d/30d, visits-per-day chart, most viewed articles, top pages, referrers (site_visits table + per-session tracker, no personal data)
 
 ## Next (in order)
-- [ ] Email confirmation letters for newsletter (needs the owner's own sending domain — setup pending user decision)
+- [ ] Newsletter confirmation emails + opt-out (BLOCKED: needs the owner's verified sending domain — user must complete email domain setup first; then: confirmation-link flow, double opt-in, Lovable unsubscribe webhook removes unsubscribed recipients from the list)
 - [ ] Scheduled publishing (scheduled_at + auto-publish)
 - [ ] Autosave drafts in admin editor
 - [ ] Article revision history + restore
