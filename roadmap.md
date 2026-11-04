@@ -3,7 +3,7 @@
 ## Done this session
 - [x] Admin page hidden (shows "Page not found" to non-admins), robots Disallow: /admin, noindex/nofollow/noarchive
 - [x] Homepage lists every published article grouped by category
-- [x] Thumbnails auto-fit, fully visible (object-contain + blurred fill)
+- [x] Thumbnails: card images fill their frames (object-cover); full article page shows the whole photo (object-contain)
 - [x] Homepage redesign: breaking strip, hero + 2 secondary, latest feed, trending, category blocks, editor's picks, newsletter, richer footer
 - [x] Live "X hours ago" timestamps (timeAgo helper, updated badge)
 - [x] RSS feed at /rss.xml
