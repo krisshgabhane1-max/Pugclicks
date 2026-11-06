@@ -14,6 +14,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as CreditsRouteImport } from './routes/credits'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
@@ -33,6 +34,7 @@ import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminCommentsRouteImport } from './routes/admin.comments'
 import { Route as AdminDesignRouteImport } from './routes/admin.design'
+import { Route as AdminPlannerRouteImport } from './routes/admin.planner'
 import { Route as AdminSecurityRouteImport } from './routes/admin.security'
 import { Route as AdminSeoRouteImport } from './routes/admin.seo'
 import { Route as AdminSiteRouteImport } from './routes/admin.site'
@@ -65,6 +67,11 @@ const AuthRoute = AuthRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CreditsRoute = CreditsRouteImport.update({
@@ -162,6 +169,11 @@ const AdminDesignRoute = AdminDesignRouteImport.update({
   path: '/design',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminPlannerRoute = AdminPlannerRouteImport.update({
+  id: '/planner',
+  path: '/planner',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminSecurityRoute = AdminSecurityRouteImport.update({
   id: '/security',
   path: '/security',
@@ -209,6 +221,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/credits': typeof CreditsRoute
   '/faq': typeof FaqRoute
   '/forgot-password': typeof ForgotPasswordRoute
@@ -227,6 +240,7 @@ export interface FileRoutesByFullPath {
   '/tools': typeof ToolsRoute
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/design': typeof AdminDesignRoute
+  '/admin/planner': typeof AdminPlannerRoute
   '/admin/security': typeof AdminSecurityRoute
   '/admin/seo': typeof AdminSeoRoute
   '/admin/site': typeof AdminSiteRoute
@@ -242,6 +256,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/credits': typeof CreditsRoute
   '/faq': typeof FaqRoute
   '/forgot-password': typeof ForgotPasswordRoute
@@ -260,6 +275,7 @@ export interface FileRoutesByTo {
   '/tools': typeof ToolsRoute
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/design': typeof AdminDesignRoute
+  '/admin/planner': typeof AdminPlannerRoute
   '/admin/security': typeof AdminSecurityRoute
   '/admin/seo': typeof AdminSeoRoute
   '/admin/site': typeof AdminSiteRoute
@@ -277,6 +293,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/cookies': typeof CookiesRoute
   '/credits': typeof CreditsRoute
   '/faq': typeof FaqRoute
   '/forgot-password': typeof ForgotPasswordRoute
@@ -295,6 +312,7 @@ export interface FileRoutesById {
   '/tools': typeof ToolsRoute
   '/admin/comments': typeof AdminCommentsRoute
   '/admin/design': typeof AdminDesignRoute
+  '/admin/planner': typeof AdminPlannerRoute
   '/admin/security': typeof AdminSecurityRoute
   '/admin/seo': typeof AdminSeoRoute
   '/admin/site': typeof AdminSiteRoute
@@ -313,6 +331,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/contact'
+    | '/cookies'
     | '/credits'
     | '/faq'
     | '/forgot-password'
@@ -331,6 +350,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/admin/comments'
     | '/admin/design'
+    | '/admin/planner'
     | '/admin/security'
     | '/admin/seo'
     | '/admin/site'
@@ -346,6 +366,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/contact'
+    | '/cookies'
     | '/credits'
     | '/faq'
     | '/forgot-password'
@@ -364,6 +385,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/admin/comments'
     | '/admin/design'
+    | '/admin/planner'
     | '/admin/security'
     | '/admin/seo'
     | '/admin/site'
@@ -380,6 +402,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/auth'
     | '/contact'
+    | '/cookies'
     | '/credits'
     | '/faq'
     | '/forgot-password'
@@ -398,6 +421,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/admin/comments'
     | '/admin/design'
+    | '/admin/planner'
     | '/admin/security'
     | '/admin/seo'
     | '/admin/site'
@@ -415,6 +439,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
+  CookiesRoute: typeof CookiesRoute
   CreditsRoute: typeof CreditsRoute
   FaqRoute: typeof FaqRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
@@ -470,6 +495,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/credits': {
@@ -605,6 +637,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDesignRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/planner': {
+      id: '/admin/planner'
+      path: '/planner'
+      fullPath: '/admin/planner'
+      preLoaderRoute: typeof AdminPlannerRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/security': {
       id: '/admin/security'
       path: '/security'
@@ -667,6 +706,7 @@ declare module '@tanstack/react-router' {
 interface AdminRouteChildren {
   AdminCommentsRoute: typeof AdminCommentsRoute
   AdminDesignRoute: typeof AdminDesignRoute
+  AdminPlannerRoute: typeof AdminPlannerRoute
   AdminSecurityRoute: typeof AdminSecurityRoute
   AdminSeoRoute: typeof AdminSeoRoute
   AdminSiteRoute: typeof AdminSiteRoute
@@ -679,6 +719,7 @@ interface AdminRouteChildren {
 const AdminRouteChildren: AdminRouteChildren = {
   AdminCommentsRoute: AdminCommentsRoute,
   AdminDesignRoute: AdminDesignRoute,
+  AdminPlannerRoute: AdminPlannerRoute,
   AdminSecurityRoute: AdminSecurityRoute,
   AdminSeoRoute: AdminSeoRoute,
   AdminSiteRoute: AdminSiteRoute,
@@ -696,6 +737,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
+  CookiesRoute: CookiesRoute,
   CreditsRoute: CreditsRoute,
   FaqRoute: FaqRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,

@@ -18,6 +18,11 @@
 - [x] Traffic dashboard (/admin/traffic): visits today/7d/30d, visits-per-day chart, most viewed articles, top pages, referrers (site_visits table + per-session tracker, no personal data)
 
 ## Next (in order)
+- [x] Google Search Console setup: token OgaIN9... added to head (pending publish + verify + sitemap submit)
+- [ ] Social sharing buttons (WhatsApp, X, Reddit, Instagram) on articles + ready-to-post captions (Instagram/X/Reddit) generated on publish via AI
+- [ ] Thumbnails show the WHOLE photo in cards (user: current crop is "very trash"); mobile feed rows like reference screenshot, 2 posts visible per screen
+- [ ] Stronger privacy policy + new /cookies page + cookie consent banner
+- [ ] SEO content planner in admin: top articles + Search Console queries + AI suggestions for topics/keywords
 - [ ] Newsletter confirmation emails + opt-out (BLOCKED: needs the owner's verified sending domain — user must complete email domain setup first; then: confirmation-link flow, double opt-in, Lovable unsubscribe webhook removes unsubscribed recipients from the list)
 - [ ] Scheduled publishing (scheduled_at + auto-publish)
 - [ ] Autosave drafts in admin editor

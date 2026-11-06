@@ -43,6 +43,13 @@
       "when": 1793673313244,
       "tag": "0005_create_site_visits",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1793940534394,
+      "tag": "0006_articles_social_captions",
+      "breakpoints": true
     }
   ]
 }

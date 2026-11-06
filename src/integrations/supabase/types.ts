@@ -85,6 +85,7 @@ export type Database = {
           published_at: string | null
           seo_title: string
           slug: string
+          social_captions: Json
           status: string
           title: string
           updated_at: string
@@ -104,6 +105,7 @@ export type Database = {
           published_at?: string | null
           seo_title?: string
           slug: string
+          social_captions?: Json
           status?: string
           title: string
           updated_at?: string
@@ -123,6 +125,7 @@ export type Database = {
           published_at?: string | null
           seo_title?: string
           slug?: string
+          social_captions?: Json
           status?: string
           title?: string
           updated_at?: string
